@@ -598,7 +598,7 @@ function hideFields()
               </label>
               <span class="custom-dropdown custom-dropdown--white">
                 <select name="pronouns" id="pronouns" class="custom-dropdown__select custom-dropdown__select--white">
-                  <option value=''>Select preferred gender pronouns...</option>
+                  <option value=''>Select your pronouns...</option>
                   <option value="She/Her/Hers">She/Her/Hers</option>
                   <option value="He/Him/His">He/Him/His</option>
                   <option value="They/Them/Their(s)">They/Them/Their(s)</option>
