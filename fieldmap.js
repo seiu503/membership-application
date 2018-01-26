@@ -15,6 +15,8 @@ export const fieldMap = {
 	"Contact.OtherCity": "mcity",
 	"Contact.OtherState": "mstate",
 	"Contact.OtherPostalCode": "mzip",
+	"Contact.Signature__c": "fullname",
+	"Contact.termsagree__c": "termsagree",
 
 	"Contact.Title": "classification",
 	"Contact.Hire_Date__c": "hiredate",

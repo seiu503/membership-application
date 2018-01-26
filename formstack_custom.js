@@ -31,6 +31,7 @@ function FF_OnBeforeSave() {
 		"Contact.OtherCity": "mcity",
 		"Contact.OtherState": "mstate",
 		"Contact.OtherPostalCode": "mzip",
+		"Contact.Signature__c": "fullname",
 		"Contact.termsagree__c": "termsagree"
 	};
 
