@@ -123,7 +123,8 @@
 <html  lang="en">
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <title>Member Application</title>
@@ -157,6 +158,9 @@
     <script type="text/javascript" src="scripts/agencylist.js"></script>
     <script type="text/javascript" src="scripts/signup_script.js"></script>
 
+    <!-- formstack script to ID form -->
+    <script type="text/javascript" id="jsFastForms" data-baseurl="https://sfapi.formstack.io/FormEngine/Scripts/main.js?d=5FC87" src="https://sfapi.formstack.io/FormEngine/Scripts/main.js?d=5FC87"></script>
+
 
     </script>
   </head>
@@ -180,7 +184,7 @@
           Please complete the following form to join the tens of thousands of care providers and public service workers who make Oregon a great place to work and live. By doing so, you will commit to maintaining your membership for one year, or paying a non-member fee equivalent. Your full name, network address, and a timestamp of your submission will serve as your signature.
         </p>
         <hr>
-        <form id="memberappform" action="https://sfapi.formstack.io/FormEngine/EngineFrame/UploadFile" enctype="multipart/form-data" id="form1" method="post" target="ffIframe">
+        <form id="memberappform" action="https://vaformsdev2app.azurewebsites.net/FormEngine/EngineFrame/SaveContent" enctype="multipart/form-data" method="post">
 
           <h2>Employment Info</h2>
           <div class="required">
@@ -287,8 +291,8 @@
           <div id = "signature">
             <h2>Signature</h2>
             <div class="required">
-              <label class="icon" for="fulContact.LastName"><i class="fa fa-pencil"></i></label>
-              <input type="text" name="fulContact.LastName" id="fulContact.LastName" placeholder="Full Name for Signature" required/>
+              <label class="icon" for="fullname"><i class="fa fa-pencil"></i></label>
+              <input type="text" name="fullname" id="fullname" placeholder="Full Name for Signature" required/>
             </div>
             <p class="small">Enter your full legal name. This will act as your signature.</p>
           </div>
@@ -312,6 +316,10 @@
            <input type="hidden" name="Contact.OtherState" id="Contact.OtherState" />
            <input type="hidden" name="Contact.OtherPostalCode" id="Contact.OtherPostalCode"  />
            <input type="hidden" name="Contact.Account_name_Pardot_sync__c" id="Contact.Account_name_Pardot_sync__c"  />
+
+           <!-- formstack stuff -->
+           <input id="txtOrgId" name="txtOrgId" value="FeYPwMSMTylji307LMtXJLOhPkzo4vrJ-VI5B_6gfvU" type="hidden">
+           <input id="formName" name="formName" value="Online Membership => SF handler" type="hidden">
 
           <div id="messages"></div>
 

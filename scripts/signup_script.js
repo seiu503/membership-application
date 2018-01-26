@@ -25,6 +25,7 @@ $(function() {
       });
 
     $( "#submit" ).on('click', function( event ) {
+      console.log('click');
       // client-side field validation
       var validform = 1;
       var errortext = '';
@@ -35,7 +36,10 @@ $(function() {
       var fname = $( 'input[type="text"][name="Contact.FirstName"]' ).val();
       var lname = $( 'input[type="text"][name="Contact.LastName"]' ).val();
       var dob = $( 'input[type="text"][name="Contact.Birthdate"]' ).val();
-      var language = $( 'select[name="Contact.Preferred_Language__c"] option:selected').val();
+      var sel = document.getElementById("Contact.Preferred_Language__c");
+      var language = sel.options[sel.selectedIndex].text;
+      // var language = $('#Contact.Preferred_Language__c option:selected').val();
+      console.log(`signup_script.js > 39: language: ${language}`); // language
       var rstreet = $( 'input[type="text"][name="Contact.MailingStreet"]' ).val();
       var rcity = $( 'input[type="text"][name="Contact.MailingCity"]' ).val();
       var rstate = $( 'select[name="Contact.MailingState"]' ).val();
@@ -87,7 +91,7 @@ $(function() {
         errortext += "<li>Date of birth is invalid</li>";
       }
 
-      if(language <= 0 || (typeof language == 'undefined') || language.length < 1) {
+      if(!language || (typeof language == 'undefined') || language.length < 1) {
         validform = 0;
         errortext += "<li>Preferred language is invalid</li>";
       }
@@ -134,6 +138,7 @@ $(function() {
 
         // generate full set of hidden fields with matching field names to send to
 
+        // this submits both the primary (SF) and hidden (MDB) form
         $("form").submit();
         return;
       }

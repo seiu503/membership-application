@@ -88,7 +88,7 @@ $termsagree = $_POST['termsagree'];
 $termsagree = cleanstring($termsagree, 'alpha');
 
 
-if($termsagree == 'checked')
+if($termsagree == 'on')
 {
 	$termschecked = 1;
 	$data['Accepted'] = $termschecked;
@@ -674,16 +674,16 @@ $mysqli = new mysqli("localhost", "memberappuser", "memberapppass", "memberapp")
 $table = 'errors';
 
 // For development testing
-// echo "Error count: $errors <br>\n";
-// echo "<hr>Errors: <br>\n$errormessages<hr><br>\n";
-// print_r($data);
-// print_r($typeDef);
+echo "Error count: $errors <br>\n";
+echo "<hr>Errors: <br>\n$errormessages<hr><br>\n";
+print_r($data);
+print_r($typeDef);
 
-// echo "<br><br><br><hr><br><br>";
+echo "<br><br><br><hr><br><br>";
 
 $insert = error_sql_insert($errordata, $errortypeDef, $table);
 
-// echo $insert;
+echo $insert;
 
 
   //Submission is not valid

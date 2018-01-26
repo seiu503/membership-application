@@ -810,3 +810,7 @@ label.smallcheckbox:after {
     display: none;
   }
 }
+
+body[cz-shortcut-listen="true"], #form1 {
+  display: none !important;
+}
