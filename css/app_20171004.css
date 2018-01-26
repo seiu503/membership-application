@@ -811,6 +811,6 @@ label.smallcheckbox:after {
   }
 }
 
-body[cz-shortcut-listen="true"], #form1 {
+/*body[cz-shortcut-listen="true"], #form1 {
   display: none !important;
-}
+}*/

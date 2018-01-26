@@ -1,5 +1,4 @@
-$(function() {
-
+$( document ).ready(function() {
     // input mask
     $('.date_ddmmyyyy').inputmask('mm/dd/yyyy', { showMaskOnFocus: true, showMaskOnHover: false });
     $('.zip').inputmask('99999', { showMaskOnFocus: false, showMaskOnHover: false });
@@ -155,7 +154,7 @@ $(function() {
       event.preventDefault();
         //Need to reload agencies as they are dynamically generated
     });
-  });
+});
 
 function getElementByClass(classname){
  var inc=0;

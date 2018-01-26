@@ -158,9 +158,6 @@
     <script type="text/javascript" src="scripts/agencylist.js"></script>
     <script type="text/javascript" src="scripts/signup_script.js"></script>
 
-    <!-- formstack script to ID form -->
-    <script type="text/javascript" id="jsFastForms" data-baseurl="https://sfapi.formstack.io/FormEngine/Scripts/main.js?d=5FC87" src="https://sfapi.formstack.io/FormEngine/Scripts/main.js?d=5FC87"></script>
-
 
     </script>
   </head>
@@ -184,7 +181,10 @@
           Please complete the following form to join the tens of thousands of care providers and public service workers who make Oregon a great place to work and live. By doing so, you will commit to maintaining your membership for one year, or paying a non-member fee equivalent. Your full name, network address, and a timestamp of your submission will serve as your signature.
         </p>
         <hr>
-        <form id="memberappform" action="https://vaformsdev2app.azurewebsites.net/FormEngine/EngineFrame/SaveContent" enctype="multipart/form-data" method="post">
+        <!-- formstack form -->
+        <script type="text/javascript" id="jsFastForms" src="https://sfapi.formstack.io/FormEngine/Scripts/Main.js?d=fA7bKuk39vCPchdNMeGXfXqG7ugrV6lc1yLNJDyVWVys8VYkDIBldsls85c3EeqI"></script>
+
+<!--         <form id="memberappform" action="https://vaformsdev2app.azurewebsites.net/FormEngine/EngineFrame/SaveContent" enctype="multipart/form-data" method="post">
 
           <h2>Employment Info</h2>
           <div class="required">
@@ -324,13 +324,8 @@
           <div id="messages"></div>
 
           <a href="" id="submit" class="button">Sign up</a>
-        </form>
+<!--         </form> -->
 
-        <!--  Hidden form with values to post to MDB, field names match MDB fields -->
-        <form action="https://seiu503signup.org/process_new.php" method="post" name="hidden_form">
-          <input type="hidden" name="email" value="%%email{html}%%" />
-          <input type="hidden" name="company" value="%%company{html}%%" />
-        </form>
         <p class="privacy"><a href="http://www.seiu.org/privacy/" target="_blank">Privacy Policy</a></p>
       </div>
     </div>
