@@ -1,4 +1,15 @@
 $( document ).ready(function() {
+
+    // wait until formstack form has rendered and then append agency dropdowns
+    $("#ffSection0").waitUntilExists(function() {
+      console.log(('ffSection0 exists'));
+      var agencyTypes = $("#hidden-php-vars").html();
+      console.log(agencyTypes);
+      var $employmentInfo = $( `<h2>Employment Info</h2><div class="required"><label class="icontab"><i class="fa fa-cog"></i></label><span class="custom-dropdown custom-dropdown--purple" id="agencyTypesInsert">${agencyTypes}</span></div><div class="required"><div id="agencylist"><label class="icontab"><i class="fa fa-cog"></i></label><span class="custom-dropdown custom-dropdown--purple"><select name="agencyplaceholder" id="agencyplaceholder" class="custom-dropdown__select custom-dropdown__select--purple" required disabled><option value="">Select an employment group first...</option></select></span></div></div>`);
+      $employmentInfo.prependTo( "#ffSection0" );
+      $('#agencyTypesInsert').html(agencyTypes);
+    });
+
     // input mask
     $('.date_ddmmyyyy').inputmask('mm/dd/yyyy', { showMaskOnFocus: true, showMaskOnHover: false });
     $('.zip').inputmask('99999', { showMaskOnFocus: false, showMaskOnHover: false });

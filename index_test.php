@@ -1,4 +1,13 @@
 <?php
+
+  function debug_to_console( $data ) {
+    $output = $data;
+    if ( is_array( $output ) )
+        $output = implode( ',', $output);
+
+    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+  }
+
   $referrer = 'UNKNOWN';
   if(isset($_SERVER['HTTP_REFERER'])) {
     $referrer = $_SERVER['HTTP_REFERER'];
@@ -155,6 +164,7 @@
     <script src="scripts/jquery.inputmask.numeric.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.inputmask.regex.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+    <script src="scripts/jquery.waituntilexists.js" type="text/javascript"></script>
     <script type="text/javascript" src="scripts/agencylist.js"></script>
     <script type="text/javascript" src="scripts/signup_script.js"></script>
 
@@ -328,6 +338,9 @@
 
         <p class="privacy"><a href="http://www.seiu.org/privacy/" target="_blank">Privacy Policy</a></p>
       </div>
+    </div>
+    <div id="hidden-php-vars">
+      <?php select_agencytype(); ?>
     </div>
   </body>
 </html>

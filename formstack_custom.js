@@ -1,9 +1,5 @@
 function FF_OnAfterRender(){
 	console.log('FF_OnAfterRender');
-// add agency/employment select
-  var $employmentInfo = $( `<h2>Employment Info</h2><div class="required"><label class="icontab"><i class="fa fa-cog"></i></label><span class="custom-dropdown custom-dropdown--purple"><?php select_agencytype(); ?></span></div><div class="required"><div id="agencylist"><label class="icontab"><i class="fa fa-cog"></i></label><span class="custom-dropdown custom-dropdown--purple"><select name="agencyplaceholder" id="agencyplaceholder" class="custom-dropdown__select custom-dropdown__select--purple" required disabled><option value="">Select an employment group first...</option></select></span></div></div>`);
-  console.log($("#ffSection0"));
-  $employmentInfo.prependTo( "#ffSection0" );
 
    // hide member terms div and logic to show/hide it
    $( '#GENERALTEXT437' ).hide();
