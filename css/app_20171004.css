@@ -240,11 +240,11 @@ html {
   text-align: center;
 }
 
-#memberapp input:required {
+input:required {
   background: #F2E5FF;
 }
 
-#memberapp select:required {
+select:required {
   background: #F2E5FF;
 }
 
@@ -449,6 +449,30 @@ input[type=password] {
   -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
   box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
   border: solid 0px #cbc9c9;
+  height: 27px;
+}
+
+.ff-label {
+
+}
+
+#ffSection0 input .ff-type-text {
+  width: 300px;
+  margin-left: -5px;
+  height: 39px;
+  -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+  -moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px;
+  border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+  background: #F2E5FF;
+  -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+  -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+  border: solid 1px #cbc9c9;
+  margin-top: 13px;
+  padding-left: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #4c4c4c;
 }
 
 #agencynumber {
@@ -621,7 +645,7 @@ a.button:hover {
     top: 0;
     bottom: 0;
     border-radius: 0 3px 3px 0;
-    margin-top: 0px;
+    margin-top: -2px;
   }
 
   .custom-dropdown__select[disabled] {
@@ -644,6 +668,8 @@ a.button:hover {
     -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
     box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
     border: solid 1px #cbc9c9;
+    margin-top: -2px;
+    height: 43px;
   }
 
   .custom-dropdown--purple:before {
@@ -766,10 +792,14 @@ label.smallcheckbox:after {
     -moz-appearance: none;
   }
 
-  .required, .mobile, .optional {
+  .required, .mobile, .optional, .ff-item-row {
     display: flex;
     width: 100%;
     margin: 10px 0;
+  }
+
+  .requiredspan {
+    display: none !important;
   }
 
   #agencylist {

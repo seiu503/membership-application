@@ -683,6 +683,7 @@ function hideFields()
 
    <input type = "hidden" name="referrer" value="<?php echo $referrer; ?>">
    <input type = "hidden" name="campaign" value="<?php echo $campaign; ?>">
+   <input type = "hidden" name="email" value="<?php echo $email; ?>">
 
    <div id="messages"></div>
 
