@@ -34,13 +34,22 @@ $( document ).ready(function() {
       // then hide the placeholder element
       $("#hidden-php-vars").hide();
 
-      // wrap span around preferred language select
-      var $langSelect = $( "#Contact.Preferred_Language__c" );
-      console.log($langSelect);
-      var $wrapSpan = $( "<span class='ff-select-type ff-singlepicklist'></span>" );
-      console.log($wrapSpan);
-      $langSelect.wrap($wrapSpan);
-    });
+
+      console.log("#Contact.Preferred_Language__c");
+      setTimeout(function(){
+        console.log(document.getElementById("Contact.Preferred_Language__c").value);
+        // wrap span around preferred language select
+        // var $before = $( "<span class='ff-select-type ff-singlepicklist'>" );
+        // var $after = $( "</span>" );
+        var $langSelect = document.getElementById("Contact.Preferred_Language__c");
+        console.log($langSelect);
+        const newSpan = document.createElement('span');
+        newSpan.classList.add('ff-select-type', 'ff-singlepicklist');
+        $langSelect.parentElement.insertBefore(newSpan, $langSelect);
+        newSpan.appendChild($langSelect);
+    }, 1000);
+
+  });
 
 
 
