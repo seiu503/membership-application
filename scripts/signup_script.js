@@ -5,13 +5,44 @@ $( document ).ready(function() {
       // copy the html from the hidden field since i can't call php inside the formstack code...
       var agencyTypes = $("#hidden-php-vars").html();
       // insert the rest of the html first
-      var $employmentInfo = $( `<h2>Employment Info</h2><div class="required"><label class="icontab"><i class="fa fa-cog"></i></label><span class="custom-dropdown custom-dropdown--purple" id="agencyTypesInsert">${agencyTypes}</span></div><div class="required"><div id="agencylist"><label class="icontab"><i class="fa fa-cog"></i></label><span class="custom-dropdown custom-dropdown--purple"><select name="agencyplaceholder" id="agencyplaceholder" class="custom-dropdown__select custom-dropdown__select--purple" required disabled><option value="">Select an employment group first...</option></select></span></div></div>`);
+      var $employmentInfo = $(
+        `<div class="ff-item-row">
+          <div class="ff-col-1 ff-label-col">
+            <label class="ff-label">Employment group</label>
+            <span class="requiredSpan ff-required-mark">*</span>
+          </div>
+          <div class="ff-col-2 ff-field-col">
+            <span class="ff-select-type ff-singlepicklist" id="agencyTypesInsert">
+            ${agencyTypes}</span>
+          </div>
+          <div class="ff-col-1 ff-label-col" id="agencylist">
+            <label class="ff-label">Employer</label>
+            <span class="requiredSpan ff-required-mark">*</span>
+          </div>
+          <div class="ff-col-2 ff-field-col">
+            <span class="ff-select-type ff-singlepicklist" id="agencyplaceholder-wrap">
+              <select name="agencyplaceholder" id="agencyplaceholder" class="inner-select" required disabled>
+                <option value="">Select an employment group first...</option>
+              </select>
+            </span>
+          </div>
+        </div>`);
+
       $employmentInfo.prependTo( "#ffSection0" );
       // then insert the dynamically-generated select values
       $('#agencyTypesInsert').html(agencyTypes);
       // then hide the placeholder element
       $("#hidden-php-vars").hide();
+
+      // wrap span around preferred language select
+      var $langSelect = $( "#Contact.Preferred_Language__c" );
+      console.log($langSelect);
+      var $wrapSpan = $( "<span class='ff-select-type ff-singlepicklist'></span>" );
+      console.log($wrapSpan);
+      $langSelect.wrap($wrapSpan);
     });
+
+
 
     // input mask
     $('#Contact.Birthdate').inputmask('mm/dd/yyyy', { showMaskOnFocus: true, showMaskOnHover: false });

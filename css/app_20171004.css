@@ -702,7 +702,7 @@ input.smallcheckbox {
   margin-left: 0px;
 }
 
-label.smallcheckbox {
+label.smallcheckbox, #lblContacttermsagree__c {
   cursor: pointer;
   margin-left: -5px;
   text-indent: 0px;
@@ -718,7 +718,8 @@ label.smallcheckbox {
   font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
 }
 
-label.smallcheckbox:before {
+label.smallcheckbox:before,
+#lblContacttermsagree__c:before {
   background: #4D2D79;
   content: '';
   position: absolute;
@@ -729,7 +730,8 @@ label.smallcheckbox:before {
   border-radius: 10%;
 }
 
-label.smallcheckbox:after {
+label.smallcheckbox:after,
+#lblContacttermsagree__c:after {
   opacity: 0;
   content: '';
   position: absolute;
@@ -839,6 +841,19 @@ label.smallcheckbox:after {
   .header {
     display: none;
   }
+}
+
+.inner-select {
+    background: #f2e5ff;
+    color: #000;
+    -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+    -moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px;
+    border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+    border: transparent;
+    margin-top: 7px;
+    width: 100%;
+    padding: 0;
+    margin-left: 10px;
 }
 
 /*body[cz-shortcut-listen="true"], #form1 {

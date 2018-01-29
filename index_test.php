@@ -374,7 +374,7 @@ function cleanstring($string, $filtertype)
 
 function select_agencytype()
 {
-    echo "<select name=\"unit\" id=\"unit\" class=\"custom-dropdown__select custom-dropdown__select--purple\" onChange=\"showAgencies()\" required>\n";
+    echo "<select name=\"unit\" id=\"unit\" class=\"inner-select\" onChange=\"showAgencies()\" required>\n";
   echo "<option value=''>Select an employment group...</option>";
 
   $mysqli = new mysqli("localhost", "memberappuser", "memberapppass", "memberapp");

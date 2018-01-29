@@ -6,7 +6,7 @@ function FF_OnAfterRender(){
    $( '#showTerms').click(function(){
       $( '#GENERALTEXT437' ).show();
    });
-   $( '#hideTerms').click(function(){
+   $( '#hideterms').click(function(){
       $( '#GENERALTEXT437' ).hide();
    });
 }
