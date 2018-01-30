@@ -33,12 +33,14 @@ ol, ul, li {
   list-style: none;
 }
 
-/* :focus {outline:none} */
-
 body, input, textarea, select {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   color: #4c4c4c;
+}
+
+textarea {
+  padding-top: 10px;
 }
 
 p {
@@ -302,7 +304,7 @@ input[type=radio]:checked + label:after {
 }
 
 input[type=checkbox] {
-  visibility: hidden;
+/*  visibility: hidden;*/
 }
 
 label.checkbox {
@@ -702,7 +704,7 @@ input.smallcheckbox {
   margin-left: 0px;
 }
 
-label.smallcheckbox, #lblContacttermsagree__c {
+label.smallcheckbox {
   cursor: pointer;
   margin-left: -5px;
   text-indent: 0px;
@@ -718,8 +720,7 @@ label.smallcheckbox, #lblContacttermsagree__c {
   font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
 }
 
-label.smallcheckbox:before,
-#lblContacttermsagree__c:before {
+label.smallcheckbox:before {
   background: #4D2D79;
   content: '';
   position: absolute;
@@ -730,8 +731,7 @@ label.smallcheckbox:before,
   border-radius: 10%;
 }
 
-label.smallcheckbox:after,
-#lblContacttermsagree__c:after {
+label.smallcheckbox:after {
   opacity: 0;
   content: '';
   position: absolute;

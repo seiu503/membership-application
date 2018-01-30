@@ -36,12 +36,10 @@ $( document ).ready(function() {
       // then hide the placeholder element
       $("#hidden-php-vars").hide();
 
-
-      console.log("#Contact.Preferred_Language__c");
+      // using setTimeout bc for some reason waitUntilExists is not working for this element -- have to wait until this input renders to the DOM
       setTimeout(function(){
         // wrap span around preferred language select
         var $langSelect = document.getElementById("Contact.Preferred_Language__c");
-        console.log($langSelect);
         const newSpan = document.createElement('span');
         newSpan.classList.add('ff-select-type', 'ff-singlepicklist');
         $langSelect.parentElement.insertBefore(newSpan, $langSelect);
