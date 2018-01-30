@@ -54,14 +54,10 @@ function FF_OnBeforeSave() {
 		}
 	});
 
-	// pass a fixed value for the agency number (Eastern Oregon University) until
-	// that part is working
-	// var $fakeAgency = $( '<input name="agencynumber" id="agencynumber" value="58010" type="hidden" />');
-	// $("#hidden_form").append( $fakeAgency );
-
-	console.log( $hiddenForm );
-
-	$hiddenForm.submit();
-
   return true;
+}
+
+function FF_OnAfterSave() {
+	// submit MDB form only if FF passes all client-side validation
+	$hiddenForm.submit();
 }

@@ -207,6 +207,7 @@
             }
 
             function generateMask(mask, metadata) {
+                console.log(mask);
                 if (opts.numericInput && opts.multi !== true) { //TODO FIX FOR DYNAMIC MASKS WITH QUANTIFIERS
                     mask = mask.split('').reverse();
                     for (var ndx = 0; ndx < mask.length; ndx++) {
@@ -628,7 +629,7 @@
             }
 
             function isValid(pos, c, strict, fromSetValid) { //strict true ~ no correction or autofill
-                strict = strict === true; //always set a value to strict to prevent possible strange behavior in the extensions 
+                strict = strict === true; //always set a value to strict to prevent possible strange behavior in the extensions
 
                 function _isValid(position, c, strict, fromSetValid) {
                     var rslt = false;
@@ -1065,7 +1066,7 @@
 
                         npt.__defineGetter__("value", getter);
                         npt.__defineSetter__("value", setter);
-                    } else { //jquery.val 
+                    } else { //jquery.val
                         valueGet = function () { return npt.value; }
                         valueSet = function (value) { npt.value = value; }
                         PatchValhook(npt.type);
@@ -1742,7 +1743,7 @@
                             return targetScope({ "action": "getemptymask", "el": this });
                         }
                         else return "";
-                    case "hasMaskedValue": //check wheter the returned value is masked or not; currently only works reliable when using jquery.val fn to retrieve the value 
+                    case "hasMaskedValue": //check wheter the returned value is masked or not; currently only works reliable when using jquery.val fn to retrieve the value
                         return this.data(targetData) ? !this.data(targetData)['opts'].autoUnmask : false;
                     case "isComplete":
                         if (this.data(targetData)) {

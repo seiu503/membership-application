@@ -4,7 +4,7 @@ $( document ).ready(function() {
     $("#ffSection0").waitUntilExists(function() {
       // copy the html from the hidden field since i can't call php inside the formstack code...
       var agencyTypes = $("#hidden-php-vars").html();
-      // insert the rest of the html first
+      // insert the html wrapper first
       var $employmentInfo = $(
         `<div class="ff-item-row">
           <div class="ff-col-1 ff-label-col">
@@ -33,12 +33,23 @@ $( document ).ready(function() {
       $employmentInfo.prependTo( "#ffSection0" );
       // then insert the dynamically-generated select values
       $('#agencyTypesInsert').html(agencyTypes);
-      // then hide the placeholder element
-      $("#hidden-php-vars").hide();
 
       // using setTimeout bc for some reason waitUntilExists is not working for this element -- have to wait until this input renders to the DOM
       setTimeout(function(){
-        // wrap span around preferred language select
+        // add input masks to fields that need client-side validation
+        $(":input").inputmask();
+
+        $("input[id='Contact.Birthdate']").inputmask('mm/dd/yyyy', { showMaskOnFocus: true, showMaskOnHover: false });
+        $("input[id='Contact.MailingPostalCode']").inputmask('99999', { showMaskOnFocus: false, showMaskOnHover: false });
+        $("input[id='Contact.MailingState']").inputmask('aa', { showMaskOnFocus: false, showMaskOnHover: false });
+        $("input[id='Contact.MobilePhone']").inputmask('(999) 999-9999', { showMaskOnFocus: false, showMaskOnHover: false, "oncomplete": function(){ $(".phone").show(); document.getElementById("Contact.tdc_tsw__SMS_Opt_out__c").checked = false; } });
+        // dob.attr( "data-inputmask", "'mask': 'mm/dd/yyyy'" );
+        // state.attr( "data-inputmask", "'mask': '99999'" );
+        // $( "#Contact.MailingState" ).attr( "data-inputmask", "'mask': 'aa'" );
+        // $( "#Contact.MobilePhone" ).attr( "data-inputmask", "'mask': '(999) 999-9999'" );
+
+        // wrap span around preferred language field
+        // to match formatting with other selects
         var $langSelect = document.getElementById("Contact.Preferred_Language__c");
         const newSpan = document.createElement('span');
         newSpan.classList.add('ff-select-type', 'ff-singlepicklist');
@@ -46,18 +57,14 @@ $( document ).ready(function() {
         newSpan.appendChild($langSelect);
 
         // hide formstack submit button
-        $(".ff-footer-group").hide();
+        // $(".ff-footer-group").hide();
     }, 1000);
 
   });
 
 
 
-    // input mask
-    $('#Contact.Birthdate').inputmask('mm/dd/yyyy', { showMaskOnFocus: true, showMaskOnHover: false });
-    $('#Contact.MailingPostalCode').inputmask('99999', { showMaskOnFocus: false, showMaskOnHover: false });
-    $('#Contact.MailingState').inputmask('aa', { showMaskOnFocus: false, showMaskOnHover: false });
-    $('#Contact.MobilePhone').inputmask('(999) 999-9999', { showMaskOnFocus: false, showMaskOnHover: false, "oncomplete": function(){ $(".phone").show(); document.getElementById("Contact.tdc_tsw__SMS_Opt_out__c").checked = false; } });
+
 
     // keyboard accessibility
     $('#termsdiv').keypress(function (e) {
@@ -75,101 +82,99 @@ $( document ).ready(function() {
         }
       });
 
-    $( "#submit" ).on('click', function( event ) {
-      // all the client-side  validation is now being handled by formstack so this can all go away for now...
+    $( "#btnsubmit" ).on('click', function( event ) {
+
       var validform = 1;
       var errortext = '';
 
-      // //Check valid options
-      // var unit = $('select[name="unit"] option:selected' ).val();
-      // var agencynumber=$('select[name="agencynumber"] option:selected').val();
-      // var fname = $( 'input[type="text"][name="Contact.FirstName"]' ).val();
-      // var lname = $( 'input[type="text"][name="Contact.LastName"]' ).val();
-      // var dob = $( 'input[type="text"][name="Contact.Birthdate"]' ).val();
-      // var sel = document.getElementById("Contact.Preferred_Language__c");
-      // var language = sel.options[sel.selectedIndex].text;
-      // // var language = $('#Contact.Preferred_Language__c option:selected').val();
-      // console.log(`signup_script.js > 39: language: ${language}`); // language
-      // var rstreet = $( 'input[type="text"][name="Contact.MailingStreet"]' ).val();
-      // var rcity = $( 'input[type="text"][name="Contact.MailingCity"]' ).val();
-      // var rstate = $( 'select[name="Contact.MailingState"]' ).val();
-      // var rzip = $( 'input[type="text"][name="Contact.MailingPostalCode"]' ).val();
-      // var remail = $( 'input[type="text"][name="Contact.Home_Email__c"]' ).val();
-      // var rmobile = $( 'input[type="text"][name="Contact.MobilePhone"]' ).val();
-      // var termsagree = $('input[type="checkbox"][name="termsagree"]').prop('checked');
-      // var fullname = $( 'input[type="text"][name="fullname"]' ).val();
+      //Check valid options
+      var unit = $('select[name="unit"] option:selected' ).val();
+      var agencynumber=$('select[name="agencynumber"] option:selected').val();
+      var fname = $( 'input[type="text"][name="Contact.FirstName"]' ).val();
+      var lname = $( 'input[type="text"][name="Contact.LastName"]' ).val();
+      var dob = $( 'input[type="text"][name="Contact.Birthdate"]' ).val();
+      var sel = document.getElementById("Contact.Preferred_Language__c");
+      var language = sel.options[sel.selectedIndex].text;
+      var rstreet = $( 'input[type="text"][name="Contact.MailingStreet"]' ).val();
+      var rcity = $( 'input[type="text"][name="Contact.MailingCity"]' ).val();
+      var rstate = $( 'select[name="Contact.MailingState"]' ).val();
+      var rzip = $( 'input[type="text"][name="Contact.MailingPostalCode"]' ).val();
+      var remail = $( 'input[type="text"][name="Contact.Home_Email__c"]' ).val();
+      var rmobile = $( 'input[type="text"][name="Contact.MobilePhone"]' ).val();
+      var termsagree = $('input[type="checkbox"][name="termsagree"]').prop('checked');
+      var fullname = $( 'input[type="text"][name="fullname"]' ).val();
 
-      // if(!termsagree) {
-      //   validform = 0;
-      //   errortext += "<li>You must agree to the membership terms</li>";
-      //   alert("You must agree to the membership terms in order to submit this form to become a member");
-      // }
+      if(!termsagree) {
+        validform = 0;
+        errortext += "<li>You must agree to the membership terms</li>";
+        alert("You must agree to the membership terms in order to submit this form to become a member");
+      }
 
-      // if(fullname <= 0 || (typeof fullname == 'undefined') || fullname.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Full name for signature invalid</li>";
-      // }
+      if(fullname <= 0 || (typeof fullname == 'undefined') || fullname.length < 1) {
+        validform = 0;
+        errortext += "<li>Full name for signature invalid</li>";
+      }
 
-      // if(unit <= 0 || (typeof unit == 'undefined') || unit.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Employment unit invalid</li>";
-      // }
+      if(unit <= 0 || (typeof unit == 'undefined') || unit.length < 1) {
+        validform = 0;
+        errortext += "<li>Employment unit invalid</li>";
+      }
 
-      // if(agencynumber <= 0 || (typeof agencynumber == 'undefined') || agencynumber.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Employment agency invalid. Please select employment unit, then select agency</li>";
-      // }
+      if(agencynumber <= 0 || (typeof agencynumber == 'undefined') || agencynumber.length < 1) {
+        validform = 0;
+        errortext += "<li>Employment agency invalid. Please select employment unit, then select agency</li>";
+      }
 
-      // if(fname < 1) {
-      //   validform = 0;
-      //   errortext +=  "<li>First name is invalid.</li>";
-      // }
+      if(fname < 1) {
+        validform = 0;
+        errortext +=  "<li>First name is invalid.</li>";
+      }
 
-      // if(lname < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Last name is invalid</li>";
-      // }
+      if(lname < 1) {
+        validform = 0;
+        errortext += "<li>Last name is invalid</li>";
+      }
 
-      // if(remail.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Personal email address is invalid</li>";
-      // }
+      if(remail.length < 1) {
+        validform = 0;
+        errortext += "<li>Personal email address is invalid</li>";
+      }
 
-      // var validdob = isValidDate(dob, 1900, 2047);
-      // if(!validdob) {
-      //   validform = 0;
-      //   errortext += "<li>Date of birth is invalid</li>";
-      // }
+      var validdob = isValidDate(dob, 1900, 2047);
+      if(!validdob) {
+        validform = 0;
+        errortext += "<li>Date of birth is invalid</li>";
+      }
 
-      // if(!language || (typeof language == 'undefined') || language.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Preferred language is invalid</li>";
-      // }
+      if(!language || (typeof language == 'undefined') || language.length < 1) {
+        validform = 0;
+        errortext += "<li>Preferred language is invalid</li>";
+      }
 
-      // if(rstreet.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>Street address is invalid</li>";
-      // }
+      if(rstreet.length < 1) {
+        validform = 0;
+        errortext += "<li>Street address is invalid</li>";
+      }
 
-      // if(rcity.length < 1) {
-      //   validform = 0;
-      //   errortext += "<li>City is invalid</li>";
-      // }
+      if(rcity.length < 1) {
+        validform = 0;
+        errortext += "<li>City is invalid</li>";
+      }
 
-      // if(rstate.length != 2) {
-      //   validform = 0;
-      //   errortext += "<li>State is invalid</li>";
-      // }
+      if(rstate.length != 2) {
+        validform = 0;
+        errortext += "<li>State is invalid</li>";
+      }
 
-      // if(rzip.length != 5) {
-      //   validform = 0;
-      //   errortext += "<li>Zip code is invalid (5 digits only)</li>";
-      // }
+      if(rzip.length != 5) {
+        validform = 0;
+        errortext += "<li>Zip code is invalid (5 digits only)</li>";
+      }
 
-      // if(rmobile.length != 14) {
-      //   validform = 0;
-      //   errortext += "<li>Phone is invalid: Use (xxx) xxx-xxxx format</li>";
-      // }
+      if(rmobile.length != 14) {
+        validform = 0;
+        errortext += "<li>Phone is invalid: Use (xxx) xxx-xxxx format</li>";
+      }
 
       if (validform == 1) {
         event.preventDefault();
@@ -177,19 +182,21 @@ $( document ).ready(function() {
         // copy home address fields over to hidden mailing address fields
         // after validation and before submit
 
-        $('#Contact.OtherStreet').val($("#Contact.MailingStreet").val());
-        $('#Contact.OtherCity').val($("#Contact.MailingCity").val());
-        $('#Contact.OtherState').val($("#Contact.MailingState").val());
-        $('#Contact.OtherPostalCode').val($("#Contact.MailingPostalCode").val());
+        $('input[id="Contact.OtherStreet"]').val($('input[id="Contact.MailingStreet"]').val());
+        $('input[id="Contact.OtherCity"]').val($('input[id="Contact.MailingCity"]').val());
+        $('input[id="Contact.OtherState"]').val($('input[id="Contact.MailingState"]').val());
+        $('input[id="Contact.OtherPostalCode"]').val($('input[id="Contact.MailingPostalCode"]').val());
 
         // populate agency name from agency number to send to salesforce
         var agencyname = $('select[name="agencynumber"] option:selected').text();
-        $('#Contact.Account_name_Pardot_sync__c').val(agencyname);
+        $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
+
 
         // generate full set of hidden fields with matching field names to send to (this happens in the js appended to formstack -- could move it here inside the 'waituntilexists function')
 
-        // this submits both the primary (SF) and hidden (MDB) form
-        $("form").submit();
+        // this submits only the formstack form
+        $("#form1").submit();
+        // need to submit the hidden form only if form1 submits without error
         return;
       }
 

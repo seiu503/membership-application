@@ -154,17 +154,19 @@
 
     <!--   pardot -->
     <script type="text/javascript">
-    piAId = '172302'; piCId = '1470'; (function() { function async_load(){ var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js'; var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); } })();
+    piAId = '172302'; piCId = '1470'; (function() { function async_load(){ var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js'; var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); } }})();
     </script>
 
     <!--   libraries -->
     <script src="scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="scripts/jquery.inputmask.js" type="text/javascript"></script>
+    <script src="scripts/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
     <script src="https://cdn.optimizely.com/js/5716112250.js"></script>
     <script src="scripts/jquery.inputmask.numeric.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.inputmask.regex.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.waituntilexists.js" type="text/javascript"></script>
+
+    <!--   scripts -->
     <script type="text/javascript" src="scripts/agencylist_2018.js"></script>
     <script type="text/javascript" src="scripts/signup_script.js"></script>
 
@@ -176,7 +178,7 @@
     <div class="header">
       <div class="banner">
         <div class="logo">
-          <img id="logo" alt="SEIU 503 In It Together" src="https://storage.pardot.com/171302/38397/SEIU503_InItTogether.png" />
+          <img id="logo" alt="SEIU 503 In It Together" src="images/SEIU503_InItTogether.png" />
         </div>
       </div>
     </div>
@@ -184,7 +186,7 @@
       <div id="memberapp">
         <h1>Building a Just and Vibrant Society</h1>
         <div class="center">
-          <img class="banner-img" src="https://storage.pardot.com/171302/38383/BannerCollage.jpg" alt="SEIU Local 503 members at work"/>
+          <img class="banner-img" src="images/BannerCollage.jpg" alt="SEIU Local 503 members at work"/>
         </div>
         <hr>
         <p class="instructions">
@@ -333,7 +335,7 @@
 
           <div id="messages"></div>
 
-          <a href="" id="submit" class="button">Sign up</a>
+<!--           <a href="" id="submit" class="button">Sign up</a> -->
 <!--         </form> -->
 
         <p class="privacy"><a href="http://www.seiu.org/privacy/" target="_blank">Privacy Policy</a></p>
