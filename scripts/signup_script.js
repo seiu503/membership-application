@@ -15,11 +15,13 @@ $( document ).ready(function() {
             <span class="ff-select-type ff-singlepicklist" id="agencyTypesInsert">
             ${agencyTypes}</span>
           </div>
-          <div class="ff-col-1 ff-label-col" id="agencylist">
+        </div>
+        <div class="ff-item-row" id="agencylist">
+          <div class="ff-col-1 ff-label-col" id="agency-list-label">
             <label class="ff-label">Employer</label>
             <span class="requiredSpan ff-required-mark">*</span>
           </div>
-          <div class="ff-col-2 ff-field-col">
+          <div class="ff-col-2 ff-field-col" id="agency-list-placeholder">
             <span class="ff-select-type ff-singlepicklist" id="agencyplaceholder-wrap">
               <select name="agencyplaceholder" id="agencyplaceholder" class="inner-select" required disabled>
                 <option value="">Select an employment group first...</option>
@@ -37,16 +39,16 @@ $( document ).ready(function() {
 
       console.log("#Contact.Preferred_Language__c");
       setTimeout(function(){
-        console.log(document.getElementById("Contact.Preferred_Language__c").value);
         // wrap span around preferred language select
-        // var $before = $( "<span class='ff-select-type ff-singlepicklist'>" );
-        // var $after = $( "</span>" );
         var $langSelect = document.getElementById("Contact.Preferred_Language__c");
         console.log($langSelect);
         const newSpan = document.createElement('span');
         newSpan.classList.add('ff-select-type', 'ff-singlepicklist');
         $langSelect.parentElement.insertBefore(newSpan, $langSelect);
         newSpan.appendChild($langSelect);
+
+        // hide formstack submit button
+        $(".ff-footer-group").hide();
     }, 1000);
 
   });

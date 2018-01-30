@@ -165,7 +165,7 @@
     <script src="scripts/jquery.inputmask.regex.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
     <script src="scripts/jquery.waituntilexists.js" type="text/javascript"></script>
-    <script type="text/javascript" src="scripts/agencylist.js"></script>
+    <script type="text/javascript" src="scripts/agencylist_2018.js"></script>
     <script type="text/javascript" src="scripts/signup_script.js"></script>
 
 
