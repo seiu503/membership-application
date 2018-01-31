@@ -123,116 +123,6 @@ else
 	$errormessages .= "Invalid Agency Number.<br>\n"; //This should never happen as it is from a drop down
 }
 
-/* //classification
-$classification = $_POST['classification'];
-$classification = cleanstring($classification, 'generic');
-if(strlen($classification) >= 1)
-{
-$data['Classification'] = $classification;
-$typeDef[] = 's';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
-
-
-/* //hiredate
-$hiredate = $_POST['hiredate'];
-//echo "Hiredate is $hiredate<br>\n";
-$hiredate = (string) cleanstring($hiredate, 'integer');
-//echo "Clean hiredate is $hiredate<br>\n";
-if(strlen($hiredate) == 8)
-{
-	$hiredate = eight_digit_date_to_my_format($hiredate);
-	$hiredateyear = substr($hiredate, strlen($hiredate) - 4, 4);
-	//check that year < 2079 or else SQL blows up
-	if (($hiredateyear < 2079))
-	{
-		$data['Hire_Date'] = $hiredate;
-		$typeDef[] = 's';
-	}
-	else
-	{
-	   //Field is optional, assume not entered or if invalid just ignore bad data
-	}
-
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
-
-
-/* //ein
-$ein = $_POST['ein'];
-$ein = cleanstring($ein, 'alphanumeric');
-if(strlen($ein) >= 1)
-{
-$data['EIN'] = $ein;
-$typeDef[] = 'i';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-}
-
-//worksite
-$worksite = $_POST['worksite'];
-$worksite = cleanstring($worksite, 'generic');
-if(strlen($worksite) >= 1)
-{
-$data['Worksite'] = $worksite;
-$typeDef[] = 's';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
-
-
-/* //wemail
-$wemail = $_POST['wemail'];
-$wemail = cleanstring($wemail, 'email');
-if(strlen($wemail) >= 6)
-{
-$data['Work_Email_Address'] = $wemail;
-$typeDef[] = 's';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
-
-
-/* //wphone
-$wphone = $_POST['wphone'];
-$wphone = cleanstring($wphone, 'integer');
-//Clean as integer but leave as string other wise we run in to issues because
-//the 10 digit number is larger than an int field can store
-if(strlen($wphone) == 10)
-{
-$data['Work_Phone_Number'] = $wphone;
-$typeDef[] = 's';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
-
-/* //wext
-$wext = $_POST['wext'];
-$wext = (int) cleanstring($wext, 'integer');
-if(strlen($wext) >= 1)
-{
-$data['Work_Phone_Ext'] = $wext;
-$typeDef[] = 'i';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
-
 //*fname
 $fname = $_POST['fname'];
 $fname = cleanstring($fname, 'alphaspacehyphen');
@@ -246,15 +136,6 @@ else
 	$errors++;
 	$errormessages .= "Invalid First Name.<br>\n";
 }
-
-/* //mname
-$mname = $_POST['mname'];
-$mname = cleanstring($mname, 'alphaspacehyphen');
-if(strlen($mname) >= 1)
-{
-	$data['Mname'] = $mname;
-	$typeDef[] = 's';
-} */
 
 //*lname
 $lname = $_POST['lname'];
@@ -299,31 +180,6 @@ else
 	$errors++;
 	$errormessages .= "Invalid Date of Birth. Please enter with 2 digit month and day and 4 digit year following the mm/dd/yyyy format.<br>\n";
 }
-
-//For radio buttons the field name will be set to the value="" of whatever was checked.. $gender = 'M' or 'F'
-//This field has been dropped
-/*
-//*gender -- radio  male,female
-$gender = $_POST['gender'];
-if($gender == 'male') { $gendercode = 'M'; }
-if($gender == 'female') { $gendercode = 'F'; }
-if (!isset($gendercode)) { $gendercode = 'U'; }
-$data['Gender'] = $gendercode;
-$typeDef[] = 's';
-*/
-
-/* //ethnicity -- drop, single character code
-$ethnicity = $_POST['ethnicity'];
-$ethnicity = cleanstring($ethnicity, 'alpha');
-if(strlen($ethnicity) == 1)
-{
-$data['Ethnic_Code'] = $ethnicity;
-$typeDef[] = 's';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-} */
 
 //language -- drop, single character code
 $language = $_POST['language'];
@@ -464,24 +320,6 @@ else
 	$errormessages .= "Invalid Email Address.<br>\n";
 }
 
-/* //*rphone
-$rphone = $_POST['rphone'];
-$rphone = cleanstring($rphone, 'integer');
-//Clean as integer but leave as string other wise we run in to issues because
-//the 10 digit number is larger than an int field can store
-if(strlen($rphone) == 10)
-{
-$data['Home_Phone'] = $rphone;
-$typeDef[] = 's';
-}
-else
-{
-	//$errors++;
-	//$errormessages .= "Invalid Primary Phone number. Please include the area code if you have not and use the format (999) 999-9999.<br>\n";
-	//Field is optional, assume not entered or if invalid just ignore bad data
-}
- */
-
 
 //rmobile
 
@@ -531,81 +369,6 @@ $data['SMS'] = $textagree;
 $typeDef[] = 'i';
 
 
-/* Moved to inside RMOBILE block because we are now making opt out instead of opt in
-//sms
-$sms = $_POST['sms'];
-$sms = cleanstring($sms, 'alpha');
-if(strlen($sms) >= 2)
-{
-	$textagree = 0;
-	if($sms == 'no') { $textagree = 0; }
-	if($sms == 'yes') { $textagree = 1; }
-	$data['SMS'] = $textagree;
-    $typeDef[] = 'i';
-}
-else
-{
-	//Field is optional, assume not entered or if invalid just ignore bad data
-}
-
-*/
-
-//*Fullname
-//Since we always need this, I've moved it to the top
-//so we can include the data in error logs
-
-//For single checkboxes the Post will equal whatever our value="" is on the front
-//As a standard I'm using "checked" to indicate checked
-
-//*termsagree -- this is processed first thing, if terms not agreed to, then fail out
-
-/* changed to a checkbox instead of radio
-//*scholarship
-$scholarship = $_POST['scholarship'];
-$scholarship = cleanstring($scholarship, 'alpha');
-if((strlen($scholarship) == 1) && ($scholarship == 'P' || $scholarship == 'S'))
-{
-	$data['Scholarship'] = $scholarship;
-    $typeDef[] = 's';
-}
-else
-{
-	//There may be an issue.. we default to political committee... I'll assume something funky
-	//is going on and box not shown or checked, because of the legal and politics involved I don't
-	//want to simply assume Political was selected
-}
-*/
-
-//If there is an issue, then we assume political.. this has been broken
-//because I wrote it for a value of "checked" when it was being set to "S"
-//because previously we had a radio box for "S" or "P"
-//so even if people selected to give to scholarship, they were forced in to political
-//this was fixed 3/4/2016, looks to have been broken since 8/9/2014
-
-/*
-$scholarship = $_POST['scholarship'];
-$scholarship = cleanstring($scholarship, 'alpha');
-
-echo $scholarship;
-
-if($scholarship == 'checked')
-{
-	$scholarship = 'S';
-	$data['Scholarship'] = $scholarship;
-	$typeDef[] = 's';
-}
-else
-{
-	$scholarship = 'P';
-	$data['Scholarship'] = $scholarship;
-	$typeDef[] = 's';
-}
-
-*/
-
-
-
-
 //Store error count and errors
 $data['ErrorCount'] = (int) $errors;
 $typeDef[] = 'i';
@@ -653,9 +416,11 @@ $table = 'errors';
 //echo "<br><br><br><hr><br><br>";
 
 $insert = error_sql_insert($errordata, $errortypeDef, $table);
-
-//Take to thank you page
-header("Location: index_new_2.php?campaign=$campaign&email=$remail"); /* Redirect browser */
+$url = "https://seiu503signup.org/p2_test.html?Contact.FirstName=" .$fname. "&Contact.LastName=" .$lname. "&Contact.Home_Email__c=" .$remail;
+// Redirect to page two
+// header("Location: index_new_2.php?campaign=$campaign&email=$remail");
+header("Location: $url");
+/* Redirect browser */
 exit();
 } //end if terms checked
 else

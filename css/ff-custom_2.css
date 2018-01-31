@@ -111,12 +111,26 @@
  #lblContacttermsagree__c  {
       margin-left: 28px;
       }
-.ff-checkbox {
+.ff-checkbox,
+.ff-ext-checkbox-css {
       font-size: 2em;
       margin-top: -25px;
       height: 30px;
       width: 30px;
-      margin-left: -5px;
+      position: absolute;
+      right: 0;
+}
+
+.ff-checkbox-li span {
+      background-image: url('images/checkbox_unchecked.png') !important;
+      margin-top: 0;
+      background-size: 25px auto;
+}
+
+.ff-checkbox-li span.ff-ext-selected {
+      background-image: url('images/checkbox_checked.png') !important;
+      margin-top: 0;
+      background-size: 25px auto;
 }
 .ff-checkbox:after  {
       opacity: 0;
@@ -174,6 +188,24 @@ textarea {
    color: rgba(0, 0, 0, .3);
 }
 
+.ff-checkbox-li span {
+      width: 30px;
+      height: 30px;
+}
+
+#lblContactLGBTQ_ID__c,
+#lblContactTrans_ID__c,
+#lblContactDisability_ID__c,
+#lblContactDeaf_or_hearing_impaired__c,
+#lblContactBlind_or_visually_impaired__c {
+      text-transform: none;
+      font-size: 1em;
+}
+
+li.ff-checkbox-li {
+      margin-bottom: 5px !important;
+}
+
 #memberapp .small {
-      margin-left: 0 !important;
+      margin-left: 0;
 }

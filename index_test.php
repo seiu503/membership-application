@@ -1,13 +1,5 @@
 <?php
 
-  function debug_to_console( $data ) {
-    $output = $data;
-    if ( is_array( $output ) )
-        $output = implode( ',', $output);
-
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
-  }
-
   $referrer = 'UNKNOWN';
   if(isset($_SERVER['HTTP_REFERER'])) {
     $referrer = $_SERVER['HTTP_REFERER'];
@@ -138,8 +130,7 @@
 
     <title>Member Application</title>
 
-    <link rel="stylesheet" href="css/app_20171004.css">
-    <link rel="stylesheet" href="font-awesome-4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://seiu503signup.org/css/app_2018.css">
 
     <!--   google analytics -->
     <script>
@@ -152,25 +143,44 @@
     ga('send', 'pageview');
     </script>
 
+    <!-- WM facebook -->
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '992059957611940');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=992059957611940&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
     <!--   pardot -->
     <script type="text/javascript">
     piAId = '172302'; piCId = '1470'; (function() { function async_load(){ var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js'; var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); } }})();
     </script>
 
     <!--   libraries -->
-    <script src="scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="https://seiu503signup.org/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="https://cdn.optimizely.com/js/5716112250.js"></script>
-    <script src="scripts/inputmask/inputmask.dependencyLib.js"></script>
-    <script src="scripts/inputmask/inputmask.js"></script>
-    <script src="scripts/inputmask/inputmask.extensions.js"></script>
-    <script src="scripts/inputmask/inputmask.numeric.extensions.js"></script>
-    <script src="scripts/inputmask/inputmask.date.extensions.js"></script>
-    <script src="scripts/inputmask/inputmask.phone.extensions.js"></script>
-    <script src="scripts/jquery.waituntilexists.js" type="text/javascript"></script>
+    <script src="https://seiu503signup.org/scripts/inputmask/inputmask.dependencyLib.js"></script>
+    <script src="https://seiu503signup.org/scripts/inputmask/inputmask.js"></script>
+    <script src="https://seiu503signup.org/scripts/inputmask/inputmask.extensions.js"></script>
+    <script src="https://seiu503signup.org/scripts/inputmask/inputmask.numeric.extensions.js"></script>
+    <script src="https://seiu503signup.org/scripts/inputmask/inputmask.date.extensions.js"></script>
+    <script src="https://seiu503signup.org/scripts/inputmask/inputmask.phone.extensions.js"></script>
+    <script src="https://seiu503signup.org/scripts/jquery.waituntilexists.js" type="text/javascript"></script>
 
     <!--   scripts -->
-    <script type="text/javascript" src="scripts/agencylist_2018.js"></script>
-    <script type="text/javascript" src="scripts/signup_script.js"></script>
+    <script type="text/javascript" src="https://seiu503signup.org/scripts/agencylist_2018.js"></script>
+    <script type="text/javascript" src="https://seiu503signup.org/scripts/signup_script.js"></script>
 
 
     </script>
@@ -186,10 +196,7 @@
     </div>
     <div class="container">
       <div id="memberapp">
-        <h1>Building a Just and Vibrant Society</h1>
-        <div class="center">
-          <img class="banner-img" src="images/BannerCollage.jpg" alt="SEIU Local 503 members at work"/>
-        </div>
+        <h1>Commiting to SEIU 503 means it can fight for you and your fellow workers.</h1>
         <hr>
         <p class="instructions">
           Please complete the following form to join the tens of thousands of care providers and public service workers who make Oregon a great place to work and live. By doing so, you will commit to maintaining your membership for one year, or paying a non-member fee equivalent. Your full name, network address, and a timestamp of your submission will serve as your signature.
@@ -245,7 +252,7 @@ function cleanstring($string, $filtertype)
 
 function select_agencytype()
 {
-    echo "<select name=\"unit\" id=\"unit\" class=\"inner-select\" onChange=\"showAgencies()\" required>\n";
+  echo "<select name=\"unit\" id=\"unit\" class=\"inner-select\" onChange=\"showAgencies()\" required>\n";
   echo "<option value=''>Select an employment group...</option>";
 
   $mysqli = new mysqli("localhost", "memberappuser", "memberapppass", "memberapp");

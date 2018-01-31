@@ -1,26 +1,42 @@
+var queryString = '';
+
 function isValidDate(txtDate, min, max) {
+  "use strict";
   var currVal = txtDate;
-  if (currVal === '') return false;
+  if (currVal === '') {
+    return false;
+  }
 
   //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
-  if (dtArray === null) return false;
+  if (dtArray === null) {
+    return false;
+  }
 
   //Checks for mm/dd/yyyy format.
   var dtMonth = dtArray[1];
-  var dtDay= dtArray[3];
+  var dtDay = dtArray[3];
   var dtYear = dtArray[5];
 
-  if (dtYear < min || dtYear > max) return false;
-  if (dtMonth < 1 || dtMonth > 12) return false;
-  if (dtDay < 1 || dtDay> 31) return false;
-  if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
+  if (dtYear < min || dtYear > max) {
     return false;
-  if (dtMonth == 2) {
+  }
+  if (dtMonth < 1 || dtMonth > 12) {
+    return false;
+  }
+  if (dtDay < 1 || dtDay> 31) {
+    return false;
+  }
+  if ((dtMonth === 4 || dtMonth === 6 || dtMonth === 9 || dtMonth === 11) && dtDay === 31) {
+    return false;
+  }
+  if (dtMonth === 2) {
     var isleap = (dtYear % 4 === 0 && (dtYear % 100 !== 0 || dtYear % 400 === 0));
-    if (dtDay> 29 || (dtDay ==29 && !isleap)) return false;
+    if (dtDay > 29 || (dtDay === 29 && !isleap)) {
+      return false;
+    }
   }
   return true;
 }
@@ -39,8 +55,6 @@ function FF_OnAfterRender(){
 }
 
 function FF_OnBeforeSave() {
-
-  console.log('submitclick');
   var validform = 1;
   var errortext = '';
 
@@ -51,7 +65,6 @@ function FF_OnBeforeSave() {
   var lname = $( 'input[name="Contact.LastName"]' ).val();
   var dob = $( 'input[name="Contact.Birthdate"]' ).val();
   var language = $( 'select[name="Contact.Preferred_Language__c"]' ).val();
-  console.log(language);
   var rstreet = $( 'textarea[id="Contact.MailingStreet"]' ).val();
   var rcity = $( 'input[name="Contact.MailingCity"]' ).val();
   var rstate = $( 'input[name="Contact.MailingState"]' ).val();
@@ -67,17 +80,17 @@ function FF_OnBeforeSave() {
     alert("You must agree to the membership terms in order to submit this form to become a member");
   }
 
-  if(fullname <= 0 || (typeof fullname == 'undefined') || fullname.length < 1) {
+  if(fullname <= 0 || fullname === undefined || fullname.length < 1) {
     validform = 0;
     errortext += "<li>Full name for signature invalid</li>";
   }
 
-  if(unit <= 0 || (typeof unit == 'undefined') || unit.length < 1) {
+  if(unit <= 0 || unit === undefined || unit.length < 1) {
     validform = 0;
     errortext += "<li>Employment unit invalid</li>";
   }
 
-  if(agencynumber <= 0 || (typeof agencynumber == 'undefined') || agencynumber.length < 1) {
+  if(agencynumber <= 0 || agencynumber === undefined || agencynumber.length < 1) {
     validform = 0;
     errortext += "<li>Employment agency invalid. Please select employment unit, then select agency</li>";
   }
@@ -103,7 +116,7 @@ function FF_OnBeforeSave() {
     errortext += "<li>Date of birth is invalid (use mm/dd/yyyy format)</li>";
   }
 
-  if(!language || (typeof language == 'undefined') || language.length < 1) {
+  if(!language || language === undefined || language.length < 1) {
     validform = 0;
     errortext += "<li>Preferred language is invalid</li>";
   }
@@ -118,17 +131,17 @@ function FF_OnBeforeSave() {
     errortext += "<li>City is invalid</li>";
   }
 
-  if(rstate.length != 2) {
+  if(rstate.length !== 2) {
     validform = 0;
     errortext += "<li>State is invalid</li>";
   }
 
-  if(rzip.length != 5) {
+  if(rzip.length !== 5) {
     validform = 0;
     errortext += "<li>Zip code is invalid (5 digits only)</li>";
   }
 
-  if(rmobile.length != 14) {
+  if(rmobile.length !== 14) {
     validform = 0;
     errortext += "<li>Phone is invalid: Use (xxx) xxx-xxxx format</li>";
   }
@@ -153,15 +166,14 @@ function FF_OnBeforeSave() {
     // copy home address fields over to hidden mailing address fields
     // after validation and before submit
     $("#messages").html("");
-    $('input[id="Contact.OtherStreet"]').val($('input[id="Contact.MailingStreet"]').val());
-    $('input[id="Contact.OtherCity"]').val($('input[id="Contact.MailingCity"]').val());
-    $('input[id="Contact.OtherState"]').val($('input[id="Contact.MailingState"]').val());
-    $('input[id="Contact.OtherPostalCode"]').val($('input[id="Contact.MailingPostalCode"]').val());
+    $('input[id="Contact.OtherStreet"]').val(rstreet);
+    $('input[id="Contact.OtherCity"]').val(rcity);
+    $('input[id="Contact.OtherState"]').val(rstate);
+    $('input[id="Contact.OtherPostalCode"]').val(rzip);
 
     // populate agency name from agency number to send to salesforce
     var agencyname = $('select[name="agencynumber"] option:selected').text();
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
-
 
     var fieldMap = {
 		"agencynumber": "agencynumber",
@@ -194,7 +206,7 @@ function FF_OnBeforeSave() {
 	$('body').append( $hiddenForm );
 
 	// for each visible input, generate a matching input with MDB fieldname and append to hidden form
-	inputs.forEach(function(input, idx) {
+	inputs.forEach(function(input) {
 		var name = input.name;
 		var value = input.value;
 		var mappedName = fieldMap[name];
@@ -204,13 +216,16 @@ function FF_OnBeforeSave() {
 		}
 	});
 
+  // generate querystring to prepopulate fields on second page
+  queryString = `https://seiu503signup.org/p2_test.html?Contact.FirstName=${fname}&Contact.LastName=${lname}&Contact.Home_Email__c=${remail}`;
+
     return true;
   }
 }
 
 function FF_OnAfterSave() {
 	// submit MDB form only if FF passes all client-side validation
-	console.log($("#hiddenForm").html());
 	$("#spinner").show();
-	$("#hiddenForm").submit();
+  $("#hidden_form").submit();
+  window.location.replace(queryString);
 }
