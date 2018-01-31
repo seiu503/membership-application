@@ -159,11 +159,13 @@
 
     <!--   libraries -->
     <script src="scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="scripts/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
     <script src="https://cdn.optimizely.com/js/5716112250.js"></script>
-    <script src="scripts/jquery.inputmask.numeric.extensions.js" type="text/javascript"></script>
-    <script src="scripts/jquery.inputmask.regex.extensions.js" type="text/javascript"></script>
-    <script src="scripts/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+    <script src="scripts/inputmask/inputmask.dependencyLib.js"></script>
+    <script src="scripts/inputmask/inputmask.js"></script>
+    <script src="scripts/inputmask/inputmask.extensions.js"></script>
+    <script src="scripts/inputmask/inputmask.numeric.extensions.js"></script>
+    <script src="scripts/inputmask/inputmask.date.extensions.js"></script>
+    <script src="scripts/inputmask/inputmask.phone.extensions.js"></script>
     <script src="scripts/jquery.waituntilexists.js" type="text/javascript"></script>
 
     <!--   scripts -->
@@ -196,147 +198,14 @@
         <!-- formstack form -->
         <script type="text/javascript" id="jsFastForms" src="https://sfapi.formstack.io/FormEngine/Scripts/Main.js?d=fA7bKuk39vCPchdNMeGXfXqG7ugrV6lc1yLNJDyVWVys8VYkDIBldsls85c3EeqI"></script>
 
-<!--         <form id="memberappform" action="https://vaformsdev2app.azurewebsites.net/FormEngine/EngineFrame/SaveContent" enctype="multipart/form-data" method="post">
-
-          <h2>Employment Info</h2>
-          <div class="required">
-            <label class="icontab"><i class="fa fa-cog"></i></label>
-            <span class="custom-dropdown custom-dropdown--purple">
-              <?php select_agencytype(); ?>
-            </span>
-          </div>
-
-          <div class="required">
-            <div id="agencylist">
-              <label class="icontab"><i class="fa fa-cog"></i></label>
-              <span class="custom-dropdown custom-dropdown--purple">
-                <select name="agencyplaceholder" id="agencyplaceholder" class="custom-dropdown__select custom-dropdown__select--purple" required disabled>
-                  <option value=''>Select an employment group first...</option>
-                </select>
-              </span>
+        <div id="messages"></div>
+        <div class="loader__wrap" id="spinner">
+          <div class="loader__bkg">
+            <div class="loader">
+              Loading...
             </div>
           </div>
-
-          <h2>Person Info</h2>
-
-           <div class="required">
-              <label class="icon" for="Contact.FirstName"><i class="fa fa-user"></i></label>
-              <input type="text" name="Contact.FirstName" id="Contact.FirstName" placeholder="First Name" required/>
-           </div>
-
-          <div class="required">
-            <label class="icon" for="Contact.LastName"><i class="fa fa-user"></i></label>
-            <input type="text" name="Contact.LastName" id="Contact.LastName" placeholder="Last Name" required/>
-          </div>
-
-          <div class="required">
-            <label class="icon" for="Contact.Birthdate"><i class="fa fa-calendar"></i></label>
-            <input type="text" name="Contact.Birthdate" id="Contact.Birthdate" class="date_ddmmyyyy" placeholder="Date of Birth" pattern="[0-9]*" required/>
-          </div>
-
-          <div class="required">
-            <label class="icontab" for="Contact.Preferred_Language__c"><i class="fa fa-cog"></i></label>
-            <span class="custom-dropdown custom-dropdown--purple">
-              <select name="Contact.Preferred_Language__c" id="Contact.Preferred_Language__c" class="custom-dropdown__select custom-dropdown__select--purple">
-                <option value="">Select preferred Language...</option>
-                <option value="English">English</option>
-                <option value="Spanish">Español</option>
-                <option value="Russian">Русский</option>
-                <option value="Vietnamese">Tiếng Việt</option>
-                <option value="Mandarin">普通话</option>
-                <option value=“Cantonese”>粤语</option>
-                <option value="ASL (Sign Language)">ASL (Sign Language)</option>
-                <option value="Korean">한국어</option>
-                <option value="Other">Other</option>
-                <option value="Somali">Soomaali</option>
-                <option value="Amharic">አማርኛ</option>
-                <option value="Romanian">Română</option>
-                <option value="Tagalog">Tagalog</option>
-              </select>
-            </span>
-          </div>
-
-          <h2>Home Address</h2>
-
-          <div class="required">
-            <label class="icon" for="Contact.MailingStreet"><i class="fa fa-home"></i></label>
-            <input type="text" name="Contact.MailingStreet" id="Contact.MailingStreet" placeholder="Home Street Address" required/>
-          </div>
-
-          <div class="required">
-            <label class="icon" for="Contact.MailingCity"><i class="fa fa-home"></i></label>
-            <input type="text" name="Contact.MailingCity" id="Contact.MailingCity" placeholder="Home City" required/>
-          </div>
-
-          <div class="required">
-            <label class="icontab" for="Contact.MailingState"><i class="fa fa-home"></i></label>
-            <span class="custom-dropdown custom-dropdown--purple">
-              <?php select_state('Contact.MailingState', ''); ?>
-            </span>
-          </div>
-
-          <div class="required">
-            <label class="icon" for="Contact.MailingPostalCode"><i class="fa fa-home"></i></label>
-            <input type="text" name="Contact.MailingPostalCode" id="Contact.MailingPostalCode" class = "zip" placeholder="Home Zip" pattern="[0-9]*" required/>
-          </div>
-
-          <h2>Contact Info</h2>
-
-          <div class="required">
-            <label class="icon" for="Contact.Home_Email__c"><i class="fa fa-keyboard-o"></i></label>
-            <input type="text" name="Contact.Home_Email__c" id="Contact.Home_Email__c" class="email" placeholder="Personal Email" required/>
-          </div>
-
-          <div class="required">
-            <div class="mobile">
-              <label class="icon" for="Contact.MobilePhone"><i class="fa fa-mobile-phone"></i></label>
-              <input type="text" name="Contact.MobilePhone" id="Contact.MobilePhone" class="phone_mob" placeholder="Primary Phone" pattern="[0-9]*" required />
-            </div>
-          </div>
-
-          <div class="phone" id="smsdiv">
-            <input type="checkbox" value="checked" id="Contact.tdc_tsw__SMS_Opt_out__c" name="Contact.tdc_tsw__SMS_Opt_out__c" />
-            <label for="Contact.tdc_tsw__SMS_Opt_out__c" class="whitecheckbox" tabindex="0">Opt out of receiving mobile alerts&dagger;</label>
-            <p class="small">&dagger; By providing my phone number, I understand that the Service Employees International Union (SEIU), its local unions, and affiliates may use automated calling technologies and/or text message me on my cellular phone on a periodic basis. SEIU will never charge for text message alerts. Carrier message and data rates may apply to such alerts. Reply STOP to stop receiving messages; reply HELP for more information.
-          </div>
-
-          <div id = "signature">
-            <h2>Signature</h2>
-            <div class="required">
-              <label class="icon" for="fullname"><i class="fa fa-pencil"></i></label>
-              <input type="text" name="fullname" id="fullname" placeholder="Full Name for Signature" required/>
-            </div>
-            <p class="small">Enter your full legal name. This will act as your signature.</p>
-          </div>
-
-          <div id="termsdiv" tabindex="0">
-            <input type="checkbox" value="checked" id="termsagree" name="termsagree">
-            <label for="termsagree" class="checkbox">I agree to the membership <a href="#terms" onClick="terms()">terms</a></label>
-          </div>
-
-          <div class="memberterms">
-            <p class="small">
-              Your full name, the network address you are accessing this page from, and the timestamp of submission will serve as signature indicating: I hereby designate SEIU Local 503, OPEU (or any successor Union entity) as my desired collective bargaining agent. I also hereby authorize my employer to deduct from my wages, commencing with the next payroll period, all Union dues and other fees or assessments as shall be certified by SEIU Local 503, OPEU (or any successor Union entity) and to remit those amounts to such Union. This authorization/delegation is unconditional, made in consideration for the cost of representation and other actions in my behalf by the Union and is made irrespective of my membership in the Union. This authorization is irrevocable for a period of one year from the date of execution and from year to year thereafter unless not less than thirty (30) and not more than forty-five (45) days prior to the end of any annual period or the termination of the contract between my employer and the Union, whichever occurs first, I notify the Union and my employer in writing, with my valid signature, of my desire to revoke this authorization.
-              <a href="#hideterms" onClick="terms()">hide terms</a>
-            </p>
-          </div>
-
-           <input type = "hidden" name="referrer" value="<?php echo $referrer; ?>">
-           <input type = "hidden" name="campaign" value="<?php echo $campaign; ?>">
-           <input type="hidden" name="Contact.OtherStreet" id="Contact.OtherStreet"/>
-           <input type="hidden" name="Contact.OtherCity" id="Contact.OtherCity"  />
-           <input type="hidden" name="Contact.OtherState" id="Contact.OtherState" />
-           <input type="hidden" name="Contact.OtherPostalCode" id="Contact.OtherPostalCode"  />
-           <input type="hidden" name="Contact.Account_name_Pardot_sync__c" id="Contact.Account_name_Pardot_sync__c"  />
-
-           <!-- formstack stuff -->
-           <input id="txtOrgId" name="txtOrgId" value="FeYPwMSMTylji307LMtXJLOhPkzo4vrJ-VI5B_6gfvU" type="hidden">
-           <input id="formName" name="formName" value="Online Membership => SF handler" type="hidden">
-
-          <div id="messages"></div>
-
-<!--           <a href="" id="submit" class="button">Sign up</a> -->
-<!--         </form> -->
+         </div>
 
         <p class="privacy"><a href="http://www.seiu.org/privacy/" target="_blank">Privacy Policy</a></p>
       </div>

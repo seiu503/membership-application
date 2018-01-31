@@ -108,6 +108,7 @@ Optional extensions on the jquery.inputmask base
                     cardinality: 2,
                     prevalidator: [{
                         validator: function (chrs, maskset, pos, strict, opts) {
+                            console.log(maskset);
                             if (!isNaN(maskset.buffer[pos + 1])) chrs += maskset.buffer[pos + 1];
                             var isValid = chrs.length == 1 ? opts.regex.val1pre.test(chrs) : opts.regex.val1.test(chrs);
                             if (!strict && !isValid) {

@@ -37,16 +37,19 @@ $( document ).ready(function() {
       // using setTimeout bc for some reason waitUntilExists is not working for this element -- have to wait until this input renders to the DOM
       setTimeout(function(){
         // add input masks to fields that need client-side validation
-        $(":input").inputmask();
 
-        $("input[id='Contact.Birthdate']").inputmask('mm/dd/yyyy', { showMaskOnFocus: true, showMaskOnHover: false });
-        $("input[id='Contact.MailingPostalCode']").inputmask('99999', { showMaskOnFocus: false, showMaskOnHover: false });
-        $("input[id='Contact.MailingState']").inputmask('aa', { showMaskOnFocus: false, showMaskOnHover: false });
-        $("input[id='Contact.MobilePhone']").inputmask('(999) 999-9999', { showMaskOnFocus: false, showMaskOnHover: false, "oncomplete": function(){ $(".phone").show(); document.getElementById("Contact.tdc_tsw__SMS_Opt_out__c").checked = false; } });
-        // dob.attr( "data-inputmask", "'mask': 'mm/dd/yyyy'" );
-        // state.attr( "data-inputmask", "'mask': '99999'" );
-        // $( "#Contact.MailingState" ).attr( "data-inputmask", "'mask': 'aa'" );
-        // $( "#Contact.MobilePhone" ).attr( "data-inputmask", "'mask': '(999) 999-9999'" );
+        var dob = document.getElementById("Contact.Birthdate");
+        var zip = document.getElementById("Contact.MailingPostalCode");
+        var state = document.getElementById("Contact.MailingState");
+        var cell = document.getElementById("Contact.MobilePhone");
+
+        Inputmask("99999").mask(zip);
+        Inputmask("aa").mask(state);
+        Inputmask("(999) 999-9999").mask(cell);
+        // Inputmask("mm/dd/yyyy").mask(dob);
+        // inputmask very buggy for mm/dd/yyyy format ??
+        // add placeholder instead...
+        dob.placeholder = "mm/dd/yyyy";
 
         // wrap span around preferred language field
         // to match formatting with other selects
@@ -61,10 +64,6 @@ $( document ).ready(function() {
     }, 1000);
 
   });
-
-
-
-
 
     // keyboard accessibility
     $('#termsdiv').keypress(function (e) {
@@ -82,136 +81,6 @@ $( document ).ready(function() {
         }
       });
 
-    $( "#btnsubmit" ).on('click', function( event ) {
-
-      var validform = 1;
-      var errortext = '';
-
-      //Check valid options
-      var unit = $('select[name="unit"] option:selected' ).val();
-      var agencynumber=$('select[name="agencynumber"] option:selected').val();
-      var fname = $( 'input[type="text"][name="Contact.FirstName"]' ).val();
-      var lname = $( 'input[type="text"][name="Contact.LastName"]' ).val();
-      var dob = $( 'input[type="text"][name="Contact.Birthdate"]' ).val();
-      var sel = document.getElementById("Contact.Preferred_Language__c");
-      var language = sel.options[sel.selectedIndex].text;
-      var rstreet = $( 'input[type="text"][name="Contact.MailingStreet"]' ).val();
-      var rcity = $( 'input[type="text"][name="Contact.MailingCity"]' ).val();
-      var rstate = $( 'select[name="Contact.MailingState"]' ).val();
-      var rzip = $( 'input[type="text"][name="Contact.MailingPostalCode"]' ).val();
-      var remail = $( 'input[type="text"][name="Contact.Home_Email__c"]' ).val();
-      var rmobile = $( 'input[type="text"][name="Contact.MobilePhone"]' ).val();
-      var termsagree = $('input[type="checkbox"][name="termsagree"]').prop('checked');
-      var fullname = $( 'input[type="text"][name="fullname"]' ).val();
-
-      if(!termsagree) {
-        validform = 0;
-        errortext += "<li>You must agree to the membership terms</li>";
-        alert("You must agree to the membership terms in order to submit this form to become a member");
-      }
-
-      if(fullname <= 0 || (typeof fullname == 'undefined') || fullname.length < 1) {
-        validform = 0;
-        errortext += "<li>Full name for signature invalid</li>";
-      }
-
-      if(unit <= 0 || (typeof unit == 'undefined') || unit.length < 1) {
-        validform = 0;
-        errortext += "<li>Employment unit invalid</li>";
-      }
-
-      if(agencynumber <= 0 || (typeof agencynumber == 'undefined') || agencynumber.length < 1) {
-        validform = 0;
-        errortext += "<li>Employment agency invalid. Please select employment unit, then select agency</li>";
-      }
-
-      if(fname < 1) {
-        validform = 0;
-        errortext +=  "<li>First name is invalid.</li>";
-      }
-
-      if(lname < 1) {
-        validform = 0;
-        errortext += "<li>Last name is invalid</li>";
-      }
-
-      if(remail.length < 1) {
-        validform = 0;
-        errortext += "<li>Personal email address is invalid</li>";
-      }
-
-      var validdob = isValidDate(dob, 1900, 2047);
-      if(!validdob) {
-        validform = 0;
-        errortext += "<li>Date of birth is invalid</li>";
-      }
-
-      if(!language || (typeof language == 'undefined') || language.length < 1) {
-        validform = 0;
-        errortext += "<li>Preferred language is invalid</li>";
-      }
-
-      if(rstreet.length < 1) {
-        validform = 0;
-        errortext += "<li>Street address is invalid</li>";
-      }
-
-      if(rcity.length < 1) {
-        validform = 0;
-        errortext += "<li>City is invalid</li>";
-      }
-
-      if(rstate.length != 2) {
-        validform = 0;
-        errortext += "<li>State is invalid</li>";
-      }
-
-      if(rzip.length != 5) {
-        validform = 0;
-        errortext += "<li>Zip code is invalid (5 digits only)</li>";
-      }
-
-      if(rmobile.length != 14) {
-        validform = 0;
-        errortext += "<li>Phone is invalid: Use (xxx) xxx-xxxx format</li>";
-      }
-
-      if (validform == 1) {
-        event.preventDefault();
-
-        // copy home address fields over to hidden mailing address fields
-        // after validation and before submit
-
-        $('input[id="Contact.OtherStreet"]').val($('input[id="Contact.MailingStreet"]').val());
-        $('input[id="Contact.OtherCity"]').val($('input[id="Contact.MailingCity"]').val());
-        $('input[id="Contact.OtherState"]').val($('input[id="Contact.MailingState"]').val());
-        $('input[id="Contact.OtherPostalCode"]').val($('input[id="Contact.MailingPostalCode"]').val());
-
-        // populate agency name from agency number to send to salesforce
-        var agencyname = $('select[name="agencynumber"] option:selected').text();
-        $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
-
-
-        // generate full set of hidden fields with matching field names to send to (this happens in the js appended to formstack -- could move it here inside the 'waituntilexists function')
-
-        // this submits only the formstack form
-        $("#form1").submit();
-        // need to submit the hidden form only if form1 submits without error
-        return;
-      }
-
-      if (unit >= 1) {
-        showAgencies();
-      }
-
-      if (agencynumber > 1) {
-        $('select[name="agencynumber"]').val(agencynumber);
-      }
-
-      $("#messages").html("<h3>Errors with your submission:</h3><ul>" +errortext+"</ul>");
-      event.preventDefault();
-        //Need to reload agencies as they are dynamically generated
-    });
 });
 
 function getElementByClass(classname){
@@ -222,33 +91,6 @@ function getElementByClass(classname){
      customcollection[inc++]=alltags[i];
  }
  return customcollection;
-}
-
-function isValidDate(txtDate, min, max) {
-  var currVal = txtDate;
-  if (currVal == '') return false;
-
-  //Declare Regex
-  var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
-  var dtArray = currVal.match(rxDatePattern); // is format OK?
-
-  if (dtArray == null) return false;
-
-  //Checks for mm/dd/yyyy format.
-  dtMonth = dtArray[1];
-  dtDay= dtArray[3];
-  dtYear = dtArray[5];
-
-  if (dtYear < min || dtYear > max) return false;
-  if (dtMonth < 1 || dtMonth > 12) return false;
-  if (dtDay < 1 || dtDay> 31) return false;
-  if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
-    return false;
-  if (dtMonth == 2) {
-    var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
-    if (dtDay> 29 || (dtDay ==29 && !isleap)) return false;
-  }
-  return true;
 }
 
 function showThis(theclassname) {

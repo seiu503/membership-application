@@ -16,6 +16,10 @@
       font-size: 16px;
       color: #4c4c4c;
       }
+.ff-input-type-invalid {
+      border-color: red !important;
+      box-shadow: 0 0 2px 2px red !important;
+}
 .ff-group-row > .ff-item-row  {
       display: flex;
       flex-direction: column;
@@ -24,6 +28,7 @@
       float: none !important;
       width: 100% !important;
       max-width: 100% !important;
+      flex-wrap: wrap;
       }
 .ff-label  {
       text-transform: uppercase;
@@ -165,3 +170,6 @@ textarea {
     padding-top: 10px;
 }
 
+.inner-select[disabled] {
+   color: rgba(0, 0, 0, .3);
+}

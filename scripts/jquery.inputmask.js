@@ -207,7 +207,6 @@
             }
 
             function generateMask(mask, metadata) {
-                console.log(mask);
                 if (opts.numericInput && opts.multi !== true) { //TODO FIX FOR DYNAMIC MASKS WITH QUANTIFIERS
                     mask = mask.split('').reverse();
                     for (var ndx = 0; ndx < mask.length; ndx++) {
