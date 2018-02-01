@@ -168,7 +168,6 @@
     </script>
 
     <!--   libraries -->
-    <script src="https://seiu503signup.org/chromephp.php"></script>
     <script src="https://seiu503signup.org/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="https://cdn.optimizely.com/js/5716112250.js"></script>
     <script src="https://seiu503signup.org/scripts/inputmask/inputmask.dependencyLib.js"></script>

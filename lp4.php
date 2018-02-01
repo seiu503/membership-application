@@ -168,7 +168,6 @@
     </script>
 
     <!--   libraries -->
-    <script src="https://seiu503signup.org/chromephp.php"></script>
     <script src="https://seiu503signup.org/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="https://cdn.optimizely.com/js/5716112250.js"></script>
     <script src="https://seiu503signup.org/scripts/inputmask/inputmask.dependencyLib.js"></script>
@@ -197,7 +196,7 @@
     </div>
     <div class="container">
       <div id="memberapp">
-        <h1>Committing to SEIU 503 means it can fight for you and your fellow workers.</h1>
+        <h1>Fight back against the Freedom Foundation: commit to SEIU 503.</h1>
         <hr>
         <p class="instructions">
           Please complete the following form to join the tens of thousands of care providers and public service workers who make Oregon a great place to work and live. By doing so, you will commit to maintaining your membership for one year, or paying a non-member fee equivalent. Your full name, network address, and a timestamp of your submission will serve as your signature.

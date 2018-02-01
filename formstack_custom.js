@@ -146,10 +146,6 @@ function FF_OnBeforeSave() {
     errortext += "<li>Phone is invalid: Use (xxx) xxx-xxxx format</li>";
   }
 
-  // if (unit >= 1) {
-  //   showAgencies();
-  // }
-
   if (agencynumber > 1) {
     $('select[name="agencynumber"]').val(agencynumber);
   }
@@ -160,7 +156,6 @@ function FF_OnBeforeSave() {
   	$('#btnsubmit').prop('disabled', false);
     return false;
   }
-    //Need to reload agencies as they are dynamically generated
 
   if (validform === 1) {
     // copy home address fields over to hidden mailing address fields
@@ -176,56 +171,60 @@ function FF_OnBeforeSave() {
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
 
     var fieldMap = {
-		"agencynumber": "agencynumber",
-		"Contact.FirstName": "fname",
-		"Contact.LastName": "lname",
-		"Contact.Birthdate": "dob",
-		"Contact.Preferred_Language__c": "language",
-		"Contact.MailingStreet": "rstreet",
-		"Contact.MailingCity": "rcity",
-		"Contact.MailingState": "rstate",
-		"Contact.MailingPostalCode": "rzip",
-		"Contact.Home_Email__c": "remail",
-		"Contact.MobilePhone": "rmobile",
-		"Contact.tdc_tsw__SMS_Opt_out__c": "sms",
-		"Contact.Account_name_Pardot_sync__c": "agency_pardot",
-		"Contact.OtherStreet": "mstreet",
-		"Contact.OtherCity": "mcity",
-		"Contact.OtherState": "mstate",
-		"Contact.OtherPostalCode": "mzip",
-		"Contact.Signature__c": "fullname",
-		"Contact.termsagree__c": "termsagree"
-	};
+  		"agencynumber": "agencynumber",
+  		"Contact.FirstName": "fname",
+  		"Contact.LastName": "lname",
+  		"Contact.Birthdate": "dob",
+  		"Contact.Preferred_Language__c": "language",
+  		"Contact.MailingStreet": "rstreet",
+  		"Contact.MailingCity": "rcity",
+  		"Contact.MailingState": "rstate",
+  		"Contact.MailingPostalCode": "rzip",
+  		"Contact.Home_Email__c": "remail",
+  		"Contact.MobilePhone": "rmobile",
+  		"Contact.tdc_tsw__SMS_Opt_out__c": "sms",
+  		"Contact.Account_name_Pardot_sync__c": "agency_pardot",
+  		"Contact.OtherStreet": "mstreet",
+  		"Contact.OtherCity": "mcity",
+  		"Contact.OtherState": "mstate",
+  		"Contact.OtherPostalCode": "mzip",
+  		"Contact.Signature__c": "fullname",
+  		"Contact.termsagree__c": "termsagree"
+  	};
 
-	// get list of visible inputs
-	var inputsNodelist = $("#dvBannerHTML :input");
-	var inputs = Array.from(inputsNodelist);
+  	// get list of visible inputs
+  	var inputsNodelist = $("#dvBannerHTML :input");
+  	var inputs = Array.from(inputsNodelist);
 
-	// append hidden form to hold new inputs
-	var $hiddenForm = $( '<form action="https://seiu503signup.org/process_test.php" method="post" name="hidden_form" id="hidden_form">');
-	$('body').append( $hiddenForm );
+  	// append hidden form to hold new inputs
+  	var $hiddenForm = $( '<form action="https://seiu503signup.org/process_test.php" method="post" name="hidden_form" id="hidden_form">');
+  	$('body').append( $hiddenForm );
 
-	// for each visible input, generate a matching input with MDB fieldname and append to hidden form
-	inputs.forEach(function(input) {
-		var name = input.name;
-		var value = input.value;
-		var mappedName = fieldMap[name];
-		if (mappedName) {
-			var $newHidden = $( '<input id="' + mappedName + '" name="' + mappedName + '" value="' + value + '" type="hidden" />' );
-			$( "#hidden_form" ).append( $newHidden );
-		}
-	});
+  	// for each visible input, generate a matching input with MDB fieldname and append to hidden form
+  	inputs.forEach(function(input) {
+  		var name = input.name;
+  		var value = input.value;
+  		var mappedName = fieldMap[name];
+  		if (mappedName) {
+  			var $newHidden = $( '<input id="' + mappedName + '" name="' + mappedName + '" value="' + value + '" type="hidden" />' );
+  			$( "#hidden_form" ).append( $newHidden );
+  		}
+  	});
 
-  // generate querystring to prepopulate fields on second page
-  queryString = `https://seiu503signup.org/p2_test.html?Contact.FirstName=${fname}&Contact.LastName=${lname}&Contact.Home_Email__c=${remail}`;
+    // console.log($("#hidden_form"));
+    // console.log($("#hidden_form").html());
+
+    // generate querystring to prepopulate fields on second page
+    queryString = `https://seiu503signup.org/p2_test.html?Contact.FirstName=${fname}&Contact.LastName=${lname}&Contact.Home_Email__c=${remail}`;
 
     return true;
   }
 }
 
 function FF_OnAfterSave() {
+  console.log('onAfterSave');
 	// submit MDB form only if FF passes all client-side validation
-	$("#spinner").show();
+	// $("#spinner").show();
   $("#hidden_form").submit();
   window.location.replace(queryString);
 }
