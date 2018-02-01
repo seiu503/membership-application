@@ -65,7 +65,7 @@ function FF_OnBeforeSave() {
   var lname = $( 'input[name="Contact.LastName"]' ).val();
   var dob = $( 'input[name="Contact.Birthdate"]' ).val();
   var language = $( 'select[name="Contact.Preferred_Language__c"]' ).val();
-  var rstreet = document.getElementById("Contact.MailingStreet").value;
+  var rstreet = $( 'textarea[id="Contact.MailingStreet"]' ).val();
   var rcity = $( 'input[name="Contact.MailingCity"]' ).val();
   var rstate = $( 'input[name="Contact.MailingState"]' ).val();
   var rzip = $( 'input[name="Contact.MailingPostalCode"]' ).val();
@@ -73,6 +73,8 @@ function FF_OnBeforeSave() {
   var rmobile = $( 'input[name="Contact.MobilePhone"]' ).val();
   var termsagree = $('input[id="Contact.termsagree__c"]').val('on');
   var fullname = $( 'input[id="Contact.Signature__c"]' ).val();
+
+  // console.log(`rstreet: ${rstreet}`);
 
   if(!termsagree) {
     validform = 0;
@@ -153,7 +155,7 @@ function FF_OnBeforeSave() {
   $("#messages").html("<h3>Errors with your submission:</h3><ul>" +errortext+"</ul>");
 
   if (validform === 0) {
-    $('#btnsubmit').prop('disabled', false);
+  	$('#btnsubmit').prop('disabled', false);
     return false;
   }
 
@@ -161,56 +163,58 @@ function FF_OnBeforeSave() {
     // copy home address fields over to hidden mailing address fields
     // after validation and before submit
     $("#messages").html("");
-    $('textarea[id="Contact.OtherStreet"]').val(rstreet);
-    // document.getElementById("Contact.OtherStreet").value = rstreet;
+    $('input[id="Contact.OtherStreet"]').val(rstreet);
     $('input[id="Contact.OtherCity"]').val(rcity);
     $('input[id="Contact.OtherState"]').val(rstate);
     $('input[id="Contact.OtherPostalCode"]').val(rzip);
+
+    console.log("mailing street:");
+    console.log($("#Contact.OtherStreet").val());
 
     // populate agency name from agency number to send to salesforce
     var agencyname = $('select[name="agencynumber"] option:selected').text();
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
 
     var fieldMap = {
-      "agencynumber": "agencynumber",
-      "Contact.FirstName": "fname",
-      "Contact.LastName": "lname",
-      "Contact.Birthdate": "dob",
-      "Contact.Preferred_Language__c": "language",
-      "Contact.MailingStreet": "rstreet",
-      "Contact.MailingCity": "rcity",
-      "Contact.MailingState": "rstate",
-      "Contact.MailingPostalCode": "rzip",
-      "Contact.Home_Email__c": "remail",
-      "Contact.MobilePhone": "rmobile",
-      "Contact.tdc_tsw__SMS_Opt_out__c": "sms",
-      "Contact.Account_name_Pardot_sync__c": "agency_pardot",
-      "Contact.OtherStreet": "mstreet",
-      "Contact.OtherCity": "mcity",
-      "Contact.OtherState": "mstate",
-      "Contact.OtherPostalCode": "mzip",
-      "Contact.Signature__c": "fullname",
-      "Contact.termsagree__c": "termsagree"
-    };
+  		"agencynumber": "agencynumber",
+  		"Contact.FirstName": "fname",
+  		"Contact.LastName": "lname",
+  		"Contact.Birthdate": "dob",
+  		"Contact.Preferred_Language__c": "language",
+  		"Contact.MailingStreet": "rstreet",
+  		"Contact.MailingCity": "rcity",
+  		"Contact.MailingState": "rstate",
+  		"Contact.MailingPostalCode": "rzip",
+  		"Contact.Home_Email__c": "remail",
+  		"Contact.MobilePhone": "rmobile",
+  		"Contact.tdc_tsw__SMS_Opt_out__c": "sms",
+  		"Contact.Account_name_Pardot_sync__c": "agency_pardot",
+  		"Contact.OtherStreet": "mstreet",
+  		"Contact.OtherCity": "mcity",
+  		"Contact.OtherState": "mstate",
+  		"Contact.OtherPostalCode": "mzip",
+  		"Contact.Signature__c": "fullname",
+  		"Contact.termsagree__c": "termsagree"
+  	};
 
-    // get list of visible inputs
-    var inputsNodelist = $("#dvBannerHTML :input");
-    var inputs = Array.from(inputsNodelist);
+  	// get list of visible inputs
+  	var inputsNodelist = $("#dvBannerHTML :input");
+  	var inputs = Array.from(inputsNodelist);
 
-    // append hidden form to hold new inputs
-    var $hiddenForm = $( '<form action="https://seiu503signup.org/process_test.php" method="post" name="hidden_form" id="hidden_form">');
-    $('body').append( $hiddenForm );
+  	// append hidden form to hold new inputs
+  	var $hiddenForm = $( '<form action="https://seiu503signup.org/process_test.php" method="post" name="hidden_form" id="hidden_form">');
+  	$('body').append( $hiddenForm );
 
-    // for each visible input, generate a matching input with MDB fieldname and append to hidden form
-    inputs.forEach(function(input) {
-      var name = input.name;
-      var value = input.value;
-      var mappedName = fieldMap[name];
-      if (mappedName) {
-        var $newHidden = $( '<input id="' + mappedName + '" name="' + mappedName + '" value="' + value + '" type="hidden" />' );
-        $( "#hidden_form" ).append( $newHidden );
-      }
-    });
+  	// for each visible input, generate a matching input with MDB fieldname and append to hidden form
+  	inputs.forEach(function(input) {
+  		var name = input.name;
+  		var value = input.value;
+  		var mappedName = fieldMap[name];
+  		if (mappedName) {
+  			var $newHidden = $( '<input id="' + mappedName + '" name="' + mappedName + '" value="' + value + '" type="hidden" />' );
+  			$( "#hidden_form" ).append( $newHidden );
+  		}
+  	});
 
     // console.log($("#hidden_form"));
     // console.log($("#hidden_form").html());
@@ -223,10 +227,10 @@ function FF_OnBeforeSave() {
 }
 
 function FF_OnAfterSave() {
-  console.log('onAfterSave');
-  // submit MDB form only if FF passes all client-side validation
-  // $("#spinner").show();
   $("#hidden_form").submit();
+  console.log('onAfterSave');
+	// submit MDB form only if FF passes all client-side validation
+	// $("#spinner").show();
 
-  // window.location.replace(queryString);
+  window.location.replace(queryString);
 }

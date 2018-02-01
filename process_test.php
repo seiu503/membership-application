@@ -425,14 +425,17 @@ function debug_to_console( $data ) {
 
 debug_to_console($data);
 
-ChromePhp::log($data);
-
 $insert = error_sql_insert($errordata, $errortypeDef, $table);
 $url = "https://seiu503signup.org/p2_test.html?Contact.FirstName=" .$fname. "&Contact.LastName=" .$lname. "&Contact.Home_Email__c=" .$remail;
 // Redirect to page two
 // header("Location: index_new_2.php?campaign=$campaign&email=$remail");
 header("Location: $url");
 /* Redirect browser */
+
+include 'ChromePhp.php';
+ChromePhp::log('process_test.php > 436');
+ChromePhp::log($url);
+
 exit();
 } //end if terms checked
 else
@@ -451,12 +454,12 @@ $mysqli = new mysqli("localhost", "memberappuser", "memberapppass", "memberapp")
 $table = 'errors';
 
 // For development testing
-// echo "Error count: $errors <br>\n";
-// echo "<hr>Errors: <br>\n$errormessages<hr><br>\n";
-// print_r($data);
-// print_r($typeDef);
+echo "Error count: $errors <br>\n";
+echo "<hr>Errors: <br>\n$errormessages<hr><br>\n";
+print_r($data);
+print_r($typeDef);
 
-// echo "<br><br><br><hr><br><br>";
+echo "<br><br><br><hr><br><br>";
 
 $insert = error_sql_insert($errordata, $errortypeDef, $table);
 

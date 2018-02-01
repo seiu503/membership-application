@@ -132,35 +132,6 @@
       margin-top: 0;
       background-size: 25px auto;
 }
-.ff-checkbox:after  {
-      opacity: 0;
-      content: '';
-      position: absolute;
-      width: 0.5em;
-      height: 0.25em;
-      background: transparent;
-      top: 7.5px;
-      left: 4.5px;
-      border: 3px solid #000000;
-      border-top: none;
-      border-right: none;
-      -webkit-transform: rotate(-45deg);
-      -moz-transform: rotate(-45deg);
-      -o-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      }
-.ff-checkbox:before  {
-      background: #f2e5ff;
-      border: 1px solid #4d2d79;
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -28px;
-      width: 20px;
-      height: 20px;
-      border-radius: 10%;
-      }
 
 #lblContacttdc_tsw__SMS_Opt_out__c {
       margin-left: 28px;
