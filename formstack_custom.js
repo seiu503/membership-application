@@ -162,7 +162,6 @@ function FF_OnBeforeSave() {
     // after validation and before submit
     $("#messages").html("");
     $('textarea[id="Contact.OtherStreet"]').val(rstreet);
-    // document.getElementById("Contact.OtherStreet").value = rstreet;
     $('input[id="Contact.OtherCity"]').val(rcity);
     $('input[id="Contact.OtherState"]').val(rstate);
     $('input[id="Contact.OtherPostalCode"]').val(rzip);
@@ -212,9 +211,6 @@ function FF_OnBeforeSave() {
       }
     });
 
-    // console.log($("#hidden_form"));
-    // console.log($("#hidden_form").html());
-
     // generate querystring to prepopulate fields on second page
     queryString = `https://seiu503signup.org/p2_test.html?Contact.FirstName=${fname}&Contact.LastName=${lname}&Contact.Home_Email__c=${remail}`;
 
@@ -227,6 +223,4 @@ function FF_OnAfterSave() {
   // submit MDB form only if FF passes all client-side validation
   // $("#spinner").show();
   $("#hidden_form").submit();
-
-  // window.location.replace(queryString);
 }
