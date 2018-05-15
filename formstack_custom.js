@@ -1,9 +1,9 @@
-var queryString = '';
+var queryString = "";
 
 function isValidDate(txtDate, min, max) {
   "use strict";
   var currVal = txtDate;
-  if (currVal === '') {
+  if (currVal === "") {
     return false;
   }
 
@@ -43,36 +43,37 @@ function isValidDate(txtDate, min, max) {
 
 
 function FF_OnAfterRender(){
-
+   "use strict";
    // hide member terms div and logic to show/hide it
-   $( '#GENERALTEXT437' ).hide();
-   $( '#showTerms').click(function(){
-      $( '#GENERALTEXT437' ).show();
+   $( "#GENERALTEXT437" ).hide();
+   $( "#showTerms").click(function(){
+      $( "#GENERALTEXT437" ).show();
    });
-   $( '#hideterms').click(function(){
-      $( '#GENERALTEXT437' ).hide();
+   $( "#hideterms").click(function(){
+      $( "#GENERALTEXT437" ).hide();
    });
 }
 
 function FF_OnBeforeSave() {
+  "use strict";
   var validform = 1;
-  var errortext = '';
+  var errortext = "";
 
   //Check valid options
-  var unit = $('select[name="unit"] option:selected' ).val();
-  var agencynumber=$('select[name="agencynumber"] option:selected').val();
-  var fname = $( 'input[name="Contact.FirstName"]' ).val();
-  var lname = $( 'input[name="Contact.LastName"]' ).val();
-  var dob = $( 'input[name="Contact.Birthdate"]' ).val();
-  var language = $( 'select[name="Contact.Preferred_Language__c"]' ).val();
+  var unit = $("select[name='unit'] option:selected" ).val();
+  var agencynumber=$("select[name='agencynumber'] option:selected").val();
+  var fname = $( "input[name='Contact.FirstName']" ).val();
+  var lname = $( "input[name='Contact.LastName']" ).val();
+  var dob = $( "input[name='Contact.Birthdate']" ).val();
+  var language = $( "select[name='Contact.Preferred_Language__c']" ).val();
   var rstreet = document.getElementById("Contact.MailingStreet").value;
-  var rcity = $( 'input[name="Contact.MailingCity"]' ).val();
-  var rstate = $( 'input[name="Contact.MailingState"]' ).val();
-  var rzip = $( 'input[name="Contact.MailingPostalCode"]' ).val();
-  var remail = $( 'input[name="Contact.Home_Email__c"]' ).val();
-  var rmobile = $( 'input[name="Contact.MobilePhone"]' ).val();
-  var termsagree = $('input[id="Contact.termsagree__c"]').val('on');
-  var fullname = $( 'input[id="Contact.Signature__c"]' ).val();
+  var rcity = $( "input[name='Contact.MailingCity']" ).val();
+  var rstate = $( "input[name='Contact.MailingState']" ).val();
+  var rzip = $( "input[name='Contact.MailingPostalCode']" ).val();
+  var remail = $( "input[name='Contact.Home_Email__c']" ).val();
+  var rmobile = $( "input[name='Contact.MobilePhone']" ).val();
+  var termsagree = $("input[id='Contact.termsagree__c']").val("on");
+  var fullname = $( "input[id='Contact.Signature__c']" ).val();
 
   if(!termsagree) {
     validform = 0;
@@ -147,13 +148,13 @@ function FF_OnBeforeSave() {
   }
 
   if (agencynumber > 1) {
-    $('select[name="agencynumber"]').val(agencynumber);
+    $("select[name='agencynumber']").val(agencynumber);
   }
 
   $("#messages").html("<h3>Errors with your submission:</h3><ul>" +errortext+"</ul>");
 
   if (validform === 0) {
-    $('#btnsubmit').prop('disabled', false);
+    $("#btnsubmit").prop("disabled", false);
     return false;
   }
 
@@ -161,14 +162,16 @@ function FF_OnBeforeSave() {
     // copy home address fields over to hidden mailing address fields
     // after validation and before submit
     $("#messages").html("");
-    $('textarea[id="Contact.OtherStreet"]').val(rstreet);
-    $('input[id="Contact.OtherCity"]').val(rcity);
-    $('input[id="Contact.OtherState"]').val(rstate);
-    $('input[id="Contact.OtherPostalCode"]').val(rzip);
+    $("textarea[id='Contact.OtherStreet']").val(rstreet);
+    $("input[id='Contact.OtherCity']").val(rcity);
+    $("input[id='Contact.OtherState']").val(rstate);
+    $("input[id='Contact.OtherPostalCode']").val(rzip);
+    // populate agency number field to send to MDB
+    $("input[id='Contact.MDB_Agency_Number__c']").val(agencynumber);
 
     // populate agency name from agency number to send to salesforce
-    var agencyname = $('select[name="agencynumber"] option:selected').text();
-    $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
+    var agencyname = $("select[name='agencynumber'] option:selected").text();
+    $("input[id='Contact.Account_name_Pardot_sync__c']").val(agencyname);
 
     var fieldMap = {
       "agencynumber": "agencynumber",
@@ -197,8 +200,8 @@ function FF_OnBeforeSave() {
     var inputs = Array.from(inputsNodelist);
 
     // append hidden form to hold new inputs
-    var $hiddenForm = $( '<form action="https://seiu503signup.org/process_test.php" method="post" name="hidden_form" id="hidden_form">');
-    $('body').append( $hiddenForm );
+    var $hiddenForm = $( "<form action='https://seiu503signup.org/process_test.php' method='post' name='hidden_form' id='hidden_form'>");
+    $("body").append( $hiddenForm );
 
     // for each visible input, generate a matching input with MDB fieldname and append to hidden form
     inputs.forEach(function(input) {
@@ -206,7 +209,7 @@ function FF_OnBeforeSave() {
       var value = input.value;
       var mappedName = fieldMap[name];
       if (mappedName) {
-        var $newHidden = $( '<input id="' + mappedName + '" name="' + mappedName + '" value="' + value + '" type="hidden" />' );
+        var $newHidden = $( `<input id="${mappedName}" name="${mappedName}" value="${value}" type="hidden" />` );
         $( "#hidden_form" ).append( $newHidden );
       }
     });
@@ -219,7 +222,8 @@ function FF_OnBeforeSave() {
 }
 
 function FF_OnAfterSave() {
-  console.log('onAfterSave');
+  "use strict";
+  console.log("onAfterSave");
   // submit MDB form only if FF passes all client-side validation
   // $("#spinner").show();
   $("#hidden_form").submit();
