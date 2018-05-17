@@ -199,11 +199,13 @@
       <div id="memberapp">
         <h1>Building a Just and Vibrant Society</h1>
         <div class="center">
-          <img class="banner-img" src="images/BannerCollage.jpg" alt="SEIU Local 503 members at work"/>
+          <img class="banner-img" src="images/MerkleySolidarity_cropped_1000.png" alt="A group of SEIU Local 503 members standing with raised fists"/>
         </div>
         <hr>
         <p class="instructions">
-          Please complete the following form to join the tens of thousands of care providers and public service workers who make Oregon a great place to work and live. By doing so, you will commit to maintaining your membership for one year, or paying a non-member fee equivalent. Your full name, network address, and a timestamp of your submission will serve as your signature.
+          By joining together in union, SEIU 503 members have won incredible victories—including increasing our pay and benefits and improving our workplace conditions. In states where more public employees remain members of the union, salaries are higher for all employees because the union has the power to negotiate from a position of strength.</p>
+        <p class="instructions">
+          <strong>We have strength in numbers.</strong> Please complete the following form to join tens of thousands of public service workers and care providers who make Oregon a great place to work and live. By doing so, you will commit to maintaining your membership for one year, or paying a non-member fee equivalent. Your full name, network address, and a timestamp of your submission will serve as your signature.
         </p>
         <hr>
         <!-- formstack form -->
