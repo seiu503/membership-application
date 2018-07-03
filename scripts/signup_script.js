@@ -67,7 +67,9 @@ $( document ).ready(function() {
 
     // populate SF agency name field as soon as selected
     $('select[name="agencynumber"]').change(function(){
+      console.log('agencynumber changed');
       var agencyname = $('select[name="agencynumber"] option:selected').text();
+      console.log(agencyname);
       $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
     });
 
