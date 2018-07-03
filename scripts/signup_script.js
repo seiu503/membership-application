@@ -65,6 +65,12 @@ $( document ).ready(function() {
 
   });
 
+    // populate SF agency name field as soon as selected
+    $('select[name="agencynumber"]').change(function(){
+      var agencyname = $('select[name="agencynumber"] option:selected').text();
+      $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
+    });
+
     // keyboard accessibility
     $('#termsdiv').keypress(function (e) {
       var key = e.which;
