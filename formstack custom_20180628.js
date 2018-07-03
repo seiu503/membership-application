@@ -1,4 +1,8 @@
 var queryString = '';
+/* global console */
+/* global $ */
+/* global document */
+/* global alert */
 
 function isValidDate(txtDate, min, max) {
   "use strict";
@@ -43,7 +47,7 @@ function isValidDate(txtDate, min, max) {
 
 
 function FF_OnAfterRender(){
-
+  'use strict';
    // hide member terms div and logic to show/hide it
    $( '#GENERALTEXT437' ).hide();
    $( '#showTerms').click(function(){
@@ -55,12 +59,14 @@ function FF_OnAfterRender(){
 }
 
 function FF_OnBeforeSave() {
+  'use strict';
   var validform = 1;
   var errortext = '';
 
   //Check valid options
   var unit = $('select[name="unit"] option:selected' ).val();
   var agencynumber=$('select[name="agencynumber"] option:selected').val();
+  console.log(`agencynumber: ${agencynumber}`);
   var fname = $( 'input[name="Contact.FirstName"]' ).val();
   var lname = $( 'input[name="Contact.LastName"]' ).val();
   var dob = $( 'input[name="Contact.Birthdate"]' ).val();
@@ -170,8 +176,11 @@ function FF_OnBeforeSave() {
     var agencyname = $('select[name="agencynumber"] option:selected').text();
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
 
+    // populate agencynumber for xml
+    $('input[id="Contact.Formstack_Agency_Number__c"]').val(agencynumber);
+
     var fieldMap = {
-      "agencynumber": "agencynumber",
+      "Contact.Formstack_Agency_Number__c": "agencynumber",
       "Contact.FirstName": "fname",
       "Contact.LastName": "lname",
       "Contact.Birthdate": "dob",
@@ -222,6 +231,7 @@ function FF_OnBeforeSave() {
 }
 
 function FF_OnAfterSave() {
+  'use strict';
   console.log('onAfterSave');
   // submit MDB form only if FF passes all client-side validation
   console.log('submitting to MDB');
