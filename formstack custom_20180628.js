@@ -88,7 +88,7 @@ function FF_OnBeforeSave() {
     $('input[id="Contact.OtherPostalCode"]').val(rzip);
 
     // populate agency name from agency number to send to salesforce
-    var agencyname = $('select[name="agencynumber"] option:selected').text();
+    agencyname = $('select[name="agencynumber"] option:selected').text();
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
 
     // populate agencynumber for xml
