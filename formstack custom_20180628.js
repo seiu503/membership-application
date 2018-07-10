@@ -80,6 +80,22 @@ function FF_OnBeforeSave() {
   var termsagree = $('input[id="Contact.termsagree__c"]').val('on');
   var fullname = $( 'input[id="Contact.Signature__c"]' ).val();
 
+    // copy home address fields over to hidden mailing address fields
+    $("#messages").html("");
+    $('textarea[id="Contact.OtherStreet"]').val(rstreet);
+    $('input[id="Contact.OtherCity"]').val(rcity);
+    $('input[id="Contact.OtherState"]').val(rstate);
+    $('input[id="Contact.OtherPostalCode"]').val(rzip);
+
+    // populate agency name from agency number to send to salesforce
+    var agencyname = $('select[name="agencynumber"] option:selected').text();
+    $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
+
+    // populate agencynumber for xml
+    $('input[id="Contact.Formstack_Agency_Number__c"]').val(agencynumber);
+    console.log('value of Contact.Formstack_Agency_Number__c input is');
+    console.log($('input[id="Contact.Formstack_Agency_Number__c"]').val());
+
   if(!termsagree) {
     validform = 0;
     errortext += "<li>You must agree to the membership terms</li>";
@@ -178,6 +194,8 @@ function FF_OnBeforeSave() {
 
     // populate agencynumber for xml
     $('input[id="Contact.Formstack_Agency_Number__c"]').val(agencynumber);
+    console.log('value of Contact.Formstack_Agency_Number__c input is');
+    console.log($('input[id="Contact.Formstack_Agency_Number__c"]').val());
 
     var fieldMap = {
       "Contact.Formstack_Agency_Number__c": "agencynumber",

@@ -66,7 +66,8 @@ $( document ).ready(function() {
   });
 
     // populate SF agency name field as soon as selected
-    $('select[name="agencynumber"]').change(function(){
+    $("select[name='agencynumber']").change(function(){
+      $("input[type='checkbox'][name='ProductCode']")
       console.log('agencynumber changed');
       var agencyname = $('select[name="agencynumber"] option:selected').text();
       console.log(agencyname);
