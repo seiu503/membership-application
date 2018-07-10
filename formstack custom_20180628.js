@@ -66,7 +66,7 @@ function FF_OnBeforeSave() {
   //Check valid options
   var unit = $('select[name="unit"] option:selected' ).val();
   var agencynumber=$('select[name="agencynumber"] option:selected').val();
-  console.log(`agencynumber: ${agencynumber}`);
+  console.log(`formstack custom_20180628 > 69 agencynumber: ${agencynumber}`);
   var fname = $( 'input[name="Contact.FirstName"]' ).val();
   var lname = $( 'input[name="Contact.LastName"]' ).val();
   var dob = $( 'input[name="Contact.Birthdate"]' ).val();
@@ -88,10 +88,12 @@ function FF_OnBeforeSave() {
     $('input[id="Contact.OtherPostalCode"]').val(rzip);
 
     // populate agency name from agency number to send to salesforce
-    agencyname = $('select[name="agencynumber"] option:selected').text();
+    var agencyname = $('select[name="agencynumber"] option:selected').text();
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
 
     // populate agencynumber for xml
+    agencynumber=$('select[name="agencynumber"] option:selected').val();
+    console.log(`formstack custom_20180628 > 96 agencynumber: ${agencynumber}`);
     $('input[id="Contact.Formstack_Agency_Number__c"]').val(agencynumber);
     console.log('value of Contact.Formstack_Agency_Number__c input is');
     console.log($('input[id="Contact.Formstack_Agency_Number__c"]').val());
@@ -189,10 +191,12 @@ function FF_OnBeforeSave() {
     $('input[id="Contact.OtherPostalCode"]').val(rzip);
 
     // populate agency name from agency number to send to salesforce
-    var agencyname = $('select[name="agencynumber"] option:selected').text();
+    agencyname = $('select[name="agencynumber"] option:selected').text();
     $('input[id="Contact.Account_name_Pardot_sync__c"]').val(agencyname);
 
     // populate agencynumber for xml
+    agencynumber=$('select[name="agencynumber"] option:selected').val();
+    console.log(`formstack custom_20180628 > 199 agencynumber: ${agencynumber}`);
     $('input[id="Contact.Formstack_Agency_Number__c"]').val(agencynumber);
     console.log('value of Contact.Formstack_Agency_Number__c input is');
     console.log($('input[id="Contact.Formstack_Agency_Number__c"]').val());
