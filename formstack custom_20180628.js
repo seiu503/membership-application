@@ -81,7 +81,6 @@ function FF_OnBeforeSave() {
   var fullname = $( 'input[id="Contact.Signature__c"]' ).val();
 
     // copy home address fields over to hidden mailing address fields
-    $("#messages").html("");
     $('textarea[id="Contact.OtherStreet"]').val(rstreet);
     $('input[id="Contact.OtherCity"]').val(rcity);
     $('input[id="Contact.OtherState"]').val(rstate);
