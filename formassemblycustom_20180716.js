@@ -1,3 +1,9 @@
+<style>
+  .label {text-transform: uppercase; font-size: .8em;}
+  .wFormContainer {width: 450px; max-width: 100%;}
+  .wForm .inputWrapper {width: 100% !important}
+</style>
+
 <script
   src="https://code.jquery.com/jquery-3.2.0.min.js"
   integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
@@ -107,6 +113,15 @@
 
       // set the value of the agencynumber field
       $("#tfa_2").val(agencyNumber);
+
+    });
+    // when home state is selected
+    $("#tfa_42").change(function() {
+      var homeState = $( "#tfa_42 option:selected" ).text();
+      console.log(`homeState: ${homeState}`);
+
+      // set the value of the mail-to state field
+      $("#tfa_4").val(homeState);
 
     });
   });
