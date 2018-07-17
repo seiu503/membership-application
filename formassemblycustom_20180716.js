@@ -105,7 +105,7 @@
 
   $(document).ready(function(){
     // make terms display link focusable
-    $("#tfa_259_L").attr('tabindex', 0);
+    $("#tfa_259-L").attr("tabindex", 0);
 
     // hide terms text
     $("#tfa_231").hide();
