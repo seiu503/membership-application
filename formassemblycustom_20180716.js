@@ -124,6 +124,14 @@
       $("#tfa_4").val(homeState);
 
     });
+
+    // when membership terms link is clicked
+    $("#tfa_259-L").click(function() {
+
+      // show or hide membership terms
+      $("#tfa_231").toggle();
+    });
+
   });
 
 </script>
