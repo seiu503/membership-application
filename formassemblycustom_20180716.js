@@ -135,9 +135,15 @@
 
     // when membership terms link is clicked
     $("#tfa_259-L").click(function() {
-      console.log('click');
       // show or hide membership terms
       $("#tfa_231").toggle();
+    });
+
+    // or if keypress enter while focused
+    $("#tfa_259-L").keypress(function(e) {
+      if(e.which == 13) {
+        $("#tfa_231").toggle();
+      }
     });
 
   });
