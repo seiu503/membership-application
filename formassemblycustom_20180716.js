@@ -2,6 +2,8 @@
   .label {text-transform: uppercase; font-size: .8em;}
   .wFormContainer {width: 450px; max-width: 100%;}
   .wForm .inputWrapper {width: 100% !important}
+  #tfa_259-L :hover {color: blue; text-decoration: underline; cursor: pointer; tabindex}
+  #tfa_259_L :focus { box-shadow: 0 0 5px 1px #08F; }
 </style>
 
 <script
@@ -102,6 +104,12 @@
   }
 
   $(document).ready(function(){
+    // make terms display link focusable
+    $("#tfa_259_L").attr('tabindex', 0);
+
+    // hide terms text
+    $("#tfa_231").hide();
+
     // when the employer name is selected
     $("#tfa_1").change(function() {
       var employerName = $( "#tfa_1 option:selected" ).text();
@@ -127,7 +135,7 @@
 
     // when membership terms link is clicked
     $("#tfa_259-L").click(function() {
-
+      console.log('click');
       // show or hide membership terms
       $("#tfa_231").toggle();
     });
