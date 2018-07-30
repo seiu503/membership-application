@@ -6,6 +6,6 @@ $qs = ' ';
 if(isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])){$qs='?'.$_SERVER['QUERY_STRING'];};
 echo file_get_contents('https://seiu503.tfaforms.net/rest/forms/view/11'.$qs);
 } else {
-echo file_get_contents('https://app.formassembly.com/rest'.$_GET['tfa_next'],false,$context);
+echo file_get_contents('https://seiu503.tfaforms.net/rest'.$_GET['tfa_next'],false,$context);
 }
 ?>
