@@ -102,12 +102,6 @@
   }
 
   $(document).ready(function(){
-    // make terms display link focusable
-    $("#tfa_259-L").attr("tabindex", 0);
-
-    // hide terms text
-    $("#tfa_231").hide();
-
 
     // when the employer name is selected
     $("#tfa_1").change(function() {
@@ -130,21 +124,6 @@
       // set the value of the mail-to state field
       $("#tfa_4").val(homeState);
 
-    });
-
-    // when membership terms link is clicked
-    $("#tfa_259-L").click(function() {
-      // show or hide membership terms
-      $("#tfa_231").toggle();
-
-    });
-
-    // or if keypress enter while focused
-    $("#tfa_259-L").keypress(function(e) {
-      if(e.which == 13) {
-        $("#tfa_231").toggle();
-
-      }
     });
 
   });
