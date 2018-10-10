@@ -126,6 +126,32 @@
 
     });
 
+    // when birthdate month, day, or year is entered
+    // generate the concatenated string to submit to SF
+    // and populate DOB field with result
+
+    const updateBirthdateString = () => {
+      const mm = $("#tfa_274").val()
+      const dd = $("#tfa_276").val()
+      const yyyy = $("#tfa_278").val()
+      return `${mm}/${dd}/${yyyy}`
+    }
+
+    $("#tfa_274").change(function() {
+      const newBirthdate = updateBirthdateString();
+      $("#tfa_16").val(newBirthdate)
+    });
+    $("#tfa_276").change(function() {
+      const newBirthdate = updateBirthdateString();
+      $("#tfa_16").val(newBirthdate)
+    })
+    $("#tfa_278").change(function() {
+      const newBirthdate = updateBirthdateString();
+      console.log(newBirthdate);
+      $("#tfa_16").val(newBirthdate)
+    })
+
+
   });
 
 </script>
