@@ -1,0 +1,27 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+
+  	const getFormIdFromPathname = (path) => {
+  		return path.replace(/\D/g,'');
+  	}
+  	const formIDField = document.getElementById("tfa_288");
+  	const formTitleField = document.getElementById("tfa_289");
+  	const formID = getFormIdFromPathname(window.location.pathname);
+  	console.log(formID);
+  	formIDField.value = formID;
+  	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
+  	console.log(formTitle);
+  	formTitleField.value = formTitle;
+
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	console.log(requestURLWithQueryParams);
+
+  	const linkInfo = document.getElementById('tfa_292');
+  	const linkHtml = '<a href=' + requestURLWithQueryParams + '>' + requestURLWithQueryParams + '</a>';
+  	console.log(linkHtml);
+
+  	linkInfo.innerHTML += linkHtml;
+
+
+  });
+ </script>

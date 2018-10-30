@@ -1,0 +1,34 @@
+<style>
+	#tfa_2, #tfa_3 {
+		border: 0;
+    font-weight: bold;
+    width: auto;
+	}
+
+	#tfa_3, #tfa_3-D, #tfa_3-D .inputWrapper {
+		width: 100% !important;
+	}
+</style>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function(){
+
+  	const urlParams = new URLSearchParams(window.location.search);
+		const formID = urlParams.get('tfa_7');
+  	console.log(formID);
+
+  	const contactID = document.getElementById('tfa_1').value;
+
+  	const customizedLink = 'https://seiu503.tfaforms.net/' + formID + '?tfa_281=' + contactID;
+  	console.log(customizedLink);
+
+  	const linkInfo = document.getElementById('tfa_292');
+  	const linkHtml = '<a href=' + requestURLWithQueryParams + '>' + requestURLWithQueryParams + '</a>';
+  	console.log(linkHtml);
+
+  	linkInfo.innerHTML += linkHtml;
+
+
+  });
+
+</script>
