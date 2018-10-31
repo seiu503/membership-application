@@ -1,0 +1,71 @@
+<!-- for page 1 of forms with prefill -->
+
+<script>
+	// when page loads,
+	document.addEventListener("DOMContentLoaded", function(){
+
+		// hide warning section
+  	document.getElementById('tfa_294').style.display = 'none';
+
+  	// check if contact ID is prepopulated from query params
+  	const urlParams = new URLSearchParams(window.location.search);
+		const contactID = urlParams.get('tfa_281');
+  	console.log(contactID);
+
+  	// check if FA found a single SF contact
+  	// and was able to populate the fullName field
+  	const fullName = document.getElementById('tfa_284').value;
+  	console.log(fullName);
+
+  	// if contact ID and fullName both exist, show the warning on page 1
+  	if (contactID && fullName) {
+  		document.getElementById('tfa_294').style.display = 'block';
+  	}
+
+  	// save the form ID (from window.location.pathname) to a variable
+  	// for generating the request URL
+	 	const getFormIdFromPathname = (path) => {
+  		return path.replace(/\D/g,'');
+  	}
+
+  	// save references to the form ID and title
+  	// for submitting to the next form to generate the prefill link
+  	const formID = getFormIdFromPathname(window.location.pathname);
+  	console.log(formID);
+  	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
+  	console.log(formTitle);
+
+  	// generate the link request URL
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	console.log(requestURLWithQueryParams);
+
+  	// append link to linkInfo display div
+  	const linkInfo = document.getElementById('tfa_292');
+  	const linkHtml = '<a href=' + requestURLWithQueryParams + '>' + requestURLWithQueryParams + '</a>';
+  	console.log(linkHtml);
+
+  	linkInfo.innerHTML += linkHtml;
+
+
+  });
+
+</script>
+
+<style>
+  #tfa_286-DB, #tfa_286-DA {display: block; text-align: center;}
+  #tfa_286 {    width: 100%;
+    text-align: center;
+    font-size: 1.3em;
+  }
+
+  #tfa_292 {
+  	overflow:hidden;
+  }
+
+  #tfa_294 {
+  	background: rgba(255, 206, 4, 0.15);
+  	border: 2px solid #ff7b04 !important;
+  	border-radius: 4px;
+  	overflow:hidden;
+  }
+</style>
