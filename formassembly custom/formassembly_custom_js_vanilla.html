@@ -1,3 +1,5 @@
+<!-- Online Membership Application P1 custom js / css -->
+
 <style>
   .label {text-transform: uppercase; font-size: .8em; color: #383932 !important; padding: 0 0 4px 0 !important;}
   .wFormContainer {width: 450px; max-width: 100%;}
@@ -6,9 +8,6 @@
   #tfa_259-L :hover {color: blue; text-decoration: underline; cursor: pointer; tabindex}
   #tfa_259_L :focus { box-shadow: 0 0 5px 1px #08F; }
 </style>
-
-<script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous">
-</script>
 
 <script>
   var agencyMap = {
@@ -101,31 +100,91 @@
     return agencyMap[employerName];
   }
 
-  $(document).ready(function(){
+  document.addEventListener("DOMContentLoaded", function(){
+
+    // hide the splash page as soon as DOM loads
+    // check to see if Contact ID is populated (from a prefill)
+    // and show the splash page only for prefills
+
+    // get text value of selected option
+    function getSelectedText(elementId) {
+      var el = document.getElementById(elementId);
+
+      if (el.selectedIndex == -1)
+          return null;
+
+      return el.options[el.selectedIndex].text;
+    }
+
 
     // when the employer name is selected
-    $("#tfa_1").change(function() {
-      var employerName = $( "#tfa_1 option:selected" ).text();
-      console.log(`employerName: ${employerName}`);
+    // $("#tfa_1").change(function() {
+    //   var employerName = $( "#tfa_1 option:selected" ).text();
 
-      // find agencynumer based on employer name
-      var agencyNumber = getAgencyNumber(employerName);
-      console.log(`agencyNumber: ${agencyNumber}`);
+      addEventHandler(document.getElementById('tfa_1'), 'change', function() {
+        var employerName = getSelectedText('tfa_1');
+        console.log(`employerName: ${employerName}`);
 
-      // set the value of the agencynumber field
-      $("#tfa_2").val(agencyNumber);
 
-    });
+        // find agencynumer based on employer name
+        var agencyNumber = getAgencyNumber(employerName);
+        console.log(`agencyNumber: ${agencyNumber}`);
+
+        // set the value of the agencynumber field
+        // $("#tfa_2").val(agencyNumber);
+        document.getElementById('tfa_2').value = agencyNumber;
+
+      });
+
     // when home state is selected
-    $("#tfa_42").change(function() {
-      var homeState = $( "#tfa_42 option:selected" ).text();
-      console.log(`homeState: ${homeState}`);
+    // $("#tfa_42").change(function() {
+      addEventHandler(document.getElementById('tfa_42'), 'change', function() {
+        // var homeState = $( "#tfa_42 option:selected" ).text();
+        var homeState = getSelectedText('tfa_42');
+        console.log(`homeState: ${homeState}`);
 
-      // set the value of the mail-to state field
-      $("#tfa_4").val(homeState);
+        // set the value of the mail-to state field
+        // $("#tfa_4").val(homeState);
+        document.getElementById('tfa_4').value = homeState;
 
     });
 
   });
+
+  wFORMS.behaviors.validation.onPass = function() {
+
+    // get user-selected employer name from field
+    var employerName = getSelectedText('tfa_1');
+    console.log(`employerName: ${employerName}`);
+
+    // find agencynumer based on employer name
+    var agencyNumber = getAgencyNumber(employerName);
+    console.log(`agencyNumber: ${agencyNumber}`);
+
+    // set the value of the agencynumber field
+    document.getElementById('tfa_2').value = agencyNumber;
+
+    // get the value of home state
+    var homeState = getSelectedText('tfa_42');
+    console.log(`homeState: ${homeState}`);
+
+    // set the value of the mail-to state field
+    document.getElementById('tfa_4').value = homeState;
+
+    // generate concatenated birthdate string to submit to SF
+    // and populate DOB field with result
+
+    var updateBirthdateString = () => {
+      var mm = document.getElementById('tfa_274').value;
+      var dd = document.getElementById('tfa_276').value;
+      var yyyy = document.getElementById('tfa_278').value;
+      return mm + '/' + dd + '/' + yyyy;
+    }
+
+    var newBirthdate = updateBirthdateString();
+    console.log(newBirthdate);
+    document.getElementById('tfa_16').value = newBirthdate;
+
+   }
 
 </script>
