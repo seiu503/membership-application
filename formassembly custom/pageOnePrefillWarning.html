@@ -1,11 +1,28 @@
 <!-- for page 1 of forms with prefill -->
 
+<script type="text/javascript" src="https://van11y.net/downloads/modal/dist/van11y-accessible-modal-window-aria.min_1530368048.js"></script>
+
 <script>
-	// when page loads,
-	document.addEventListener("DOMContentLoaded", function(){
+
+  // when page loads,
+  document.addEventListener("DOMContentLoaded", function(){
+  	console.log('domcontent loaded');
+
+		// append hidden button to DOM
+		var hiddenButton = document.createElement('button');
+		hiddenButton.style.cssText = 'display:none;';
+    hiddenButton.setAttribute("id", "hiddenButton");
+		hiddenButton.setAttribute("data-modal-prefix-class", "simple-animated");
+		hiddenButton.setAttribute("data-modal-content-id", "tfa_294");
+		hiddenButton.setAttribute("data-modal-title", "Is this you?");
+		hiddenButton.setAttribute("data-modal-close-text", "Yes, that's me. Take me to the form.");
+		hiddenButton.setAttribute("data-modal-close-title", "Yes, that's me. Take me to the form.");
+		document.body.appendChild(hiddenButton);
+		console.log('appended hiddenButton');
+		console.log(hiddenButton);
 
 		// hide warning section
-  	document.getElementById('tfa_294').style.display = 'none';
+  	// document.getElementById('tfa_294').style.display = 'none';
 
   	// check if contact ID is prepopulated from query params
   	const urlParams = new URLSearchParams(window.location.search);
@@ -17,9 +34,12 @@
   	const fullName = document.getElementById('tfa_284').value;
   	console.log(fullName);
 
-  	// if contact ID and fullName both exist, show the warning on page 1
+  	// if contact ID and fullName both exist, simulate a click on the
+  	// hidden button to trigger the modal opening
   	if (contactID && fullName) {
-  		document.getElementById('tfa_294').style.display = 'block';
+  		console.log('conditions met for hiddenButton click');
+  		document.getElementById("hiddenButton").click();
+  		// document.getElementById('tfa_294').style.display = 'block';
   	}
 
   	// save the form ID (from window.location.pathname) to a variable
@@ -50,22 +70,3 @@
   });
 
 </script>
-
-<style>
-  #tfa_286-DB, #tfa_286-DA {display: block; text-align: center;}
-  #tfa_286 {    width: 100%;
-    text-align: center;
-    font-size: 1.3em;
-  }
-
-  #tfa_292 {
-  	overflow:hidden;
-  }
-
-  #tfa_294 {
-  	background: rgba(255, 206, 4, 0.15);
-  	border: 2px solid #ff7b04 !important;
-  	border-radius: 4px;
-  	overflow:hidden;
-  }
-</style>

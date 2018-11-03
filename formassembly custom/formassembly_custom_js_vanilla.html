@@ -7,6 +7,13 @@
   .wForm .inputWrapper {width: 100% !important}
   #tfa_259-L :hover {color: blue; text-decoration: underline; cursor: pointer; tabindex}
   #tfa_259_L :focus { box-shadow: 0 0 5px 1px #08F; }
+
+  /*  dob field styles */
+
+  #tfa_274-D, #tfa_276-D {width: 80px !important;}
+  #tfa_274-D, #tfa_276-D, #tfa_278-D {margin-top:5px;}
+  #tfa_278-D {max-width: 120px;}
+  #tfa_279-L {width: 100%; margin: 20px 0 0 8px;}
 </style>
 
 <script>
@@ -100,57 +107,71 @@
     return agencyMap[employerName];
   }
 
-  document.addEventListener("DOMContentLoaded", function(){
+  // get text value of selected option
+  function getSelectedText(elementId) {
+    var el = document.getElementById(elementId);
 
-    // hide the splash page as soon as DOM loads
-    // check to see if Contact ID is populated (from a prefill)
-    // and show the splash page only for prefills
+    if (el.selectedIndex == -1)
+        return null;
 
-    // get text value of selected option
-    function getSelectedText(elementId) {
-      var el = document.getElementById(elementId);
+    return el.options[el.selectedIndex].text;
+  }
 
-      if (el.selectedIndex == -1)
-          return null;
+  // generate concatenated birthdate string to submit to SF
+  // and set the value of the hidden birthdate field
+  function updateBirthdateString() {
+      var mm = document.getElementById('tfa_274').value;
+      var dd = document.getElementById('tfa_276').value;
+      var yyyy = document.getElementById('tfa_278').value;
 
-      return el.options[el.selectedIndex].text;
+      var newBirthdate = mm + '/' + dd + '/' + yyyy;
+      console.log(newBirthdate);
+      document.getElementById('tfa_16').value = newBirthdate;
     }
 
+  document.addEventListener("DOMContentLoaded", function(){
 
     // when the employer name is selected
-    // $("#tfa_1").change(function() {
-    //   var employerName = $( "#tfa_1 option:selected" ).text();
-
-      addEventHandler(document.getElementById('tfa_1'), 'change', function() {
+      document.getElementById('tfa_1').addEventListener('change', function() {
         var employerName = getSelectedText('tfa_1');
         console.log(`employerName: ${employerName}`);
-
 
         // find agencynumer based on employer name
         var agencyNumber = getAgencyNumber(employerName);
         console.log(`agencyNumber: ${agencyNumber}`);
 
         // set the value of the agencynumber field
-        // $("#tfa_2").val(agencyNumber);
         document.getElementById('tfa_2').value = agencyNumber;
 
       });
 
     // when home state is selected
-    // $("#tfa_42").change(function() {
-      addEventHandler(document.getElementById('tfa_42'), 'change', function() {
+      document.getElementById('tfa_42').addEventListener('change',  function() {
         // var homeState = $( "#tfa_42 option:selected" ).text();
         var homeState = getSelectedText('tfa_42');
         console.log(`homeState: ${homeState}`);
 
         // set the value of the mail-to state field
-        // $("#tfa_4").val(homeState);
         document.getElementById('tfa_4').value = homeState;
 
     });
 
+      // when any of the birthdate fields are changed,
+      // update the birthdate string
+        document.getElementById('tfa_274').addEventListener('change', function() {
+          updateBirthdateString();
+        });
+        document.getElementById('tfa_276').addEventListener('change', function() {
+          updateBirthdateString();
+        });
+        document.getElementById('tfa_278').addEventListener('change', function() {
+          updateBirthdateString();
+        });
   });
 
+
+  // now run it all over again after validation and before submit
+  // because it's just not firing in 10% of submissions ???
   wFORMS.behaviors.validation.onPass = function() {
 
     // get user-selected employer name from field
@@ -171,19 +192,7 @@
     // set the value of the mail-to state field
     document.getElementById('tfa_4').value = homeState;
 
-    // generate concatenated birthdate string to submit to SF
-    // and populate DOB field with result
-
-    var updateBirthdateString = () => {
-      var mm = document.getElementById('tfa_274').value;
-      var dd = document.getElementById('tfa_276').value;
-      var yyyy = document.getElementById('tfa_278').value;
-      return mm + '/' + dd + '/' + yyyy;
-    }
-
-    var newBirthdate = updateBirthdateString();
-    console.log(newBirthdate);
-    document.getElementById('tfa_16').value = newBirthdate;
+    updateBirthdateString();
 
    }
 
