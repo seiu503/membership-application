@@ -1,7 +1,403 @@
-/**
- * van11y-accessible-modal-window-aria - ES2015 accessible modal window system, using ARIA (compatible IE9+ when transpiled)
- * @version v2.4.4
- * @link https://van11y.net/accessible-modal/
- * @license MIT : https://github.com/nico3333fr/van11y-accessible-modal-window-aria/blob/master/LICENSE
+/*
+ * ES2015 accessible modal window system, using ARIA
+ * Website: https://van11y.net/accessible-modal/
+ * License MIT: https://github.com/nico3333fr/van11y-accessible-modal-aria/blob/master/LICENSE
  */
-"use strict";!function(t){function e(t,e){for("string"==typeof e&&(e=document.createElement(e)),t.appendChild(e);t.firstChild!==e;)e.appendChild(t.firstChild)}function a(t){t.parentNode.removeChild(t)}var o="js-modal",d="label_modal_",l="modal",n="data-modal-background-click",i="data-modal-prefix-class",r="data-modal-text",s="data-modal-content-id",c="data-modal-describedby-id",u="data-modal-title",m="data-modal-focus-toid",b="data-modal-close-text",f="data-modal-close-title",g="data-modal-close-img",v="dialog",A="modal-close",C="js-modal-close",p="js-modal-close",h="data-content-back-id",y="data-focus-back",k="modal__wrapper",x="modal__content",I="js-modal-content",L="modal__closeimg",T="modal-close__text",E="modal-title",B="modal-title",j="a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]",M="js-modal-page",P="js-modal",D="js-modal-overlay",_="modal-overlay",w="Close modal",H="data-background-click",N="invisible",S="no-scroll",q="role",F="open",O="aria-labelledby",R="aria-describedby",$="aria-hidden",K="aria-haspopup",V="dialog",W=function(e){return t.getElementById(e)},z=function(t,e){t.classList?t.classList.add(e):t.className+=" "+e},G=function(t,e){t.classList?t.classList.remove(e):t.className=t.className.replace(new RegExp("(^|\\b)"+e.split(" ").join("|")+"(\\b|$)","gi")," ")},J=function(t,e){return t.classList?t.classList.contains(e):new RegExp("(^| )"+e+"( |$)","gi").test(t.className)},Q=function(t,e){for(var a=!1,o=t.parentNode;o&&a===!1;)J(o,e)===!0?a=!0:o=o.parentNode;return a===!0?o.getAttribute("id"):""},U=function(t){var e=D,a=t.text||w,o=t.prefixClass+_,d="disabled"===t.backgroundEnabled?"disabled":"enabled";return'<span\n id="'+e+'"\n class="'+o+'"\n'+H+'="'+d+'"\n title="'+a+'"\n>\n<span class="'+N+'">'+a+"</span>\n</span>"},X=function(t){var e=P,a=t.modalPrefixClass+l,o=t.modalPrefixClass+k,d=t.modalPrefixClass+A,n=t.modalCloseImgPath?'<img src="'+t.modalCloseImgPath+'" alt="'+t.modalCloseText+'" class="'+t.modalPrefixClass+L+'" />':'<span class="'+t.modalPrefixClass+T+'">\n'+t.modalCloseText+"\n</span>",i=t.modalPrefixClass+x,r=t.modalPrefixClass+B,s=""!==t.modalTitle?'<h1 id="'+E+'" class="'+r+'">\n'+t.modalTitle+"\n</h1>":"",c='<button type="button" class="'+p+" "+d+'" id="'+C+'" title="'+t.modalCloseTitle+'" '+h+'="'+t.modalContentId+'" '+y+'="'+t.modalFocusBackId+'">\n'+n+"\n</button>",u=t.modalText,m=""!==t.modalDescribedById?R+'="'+t.modalDescribedById+'"':"";if(""===u&&t.modalContentId){var b=W(t.modalContentId);b&&(u='<div id="'+I+'">\n'+b.innerHTML+"\n</div",b.innerHTML="")}return'<dialog id="'+e+'" class="'+a+'" '+q+'="'+v+'" '+m+" "+F+" "+O+'="'+E+'">\n<div role="document" class="'+o+'">\n'+c+'\n<div class="'+i+'">\n'+s+"\n"+u+"\n</div>\n</div>\n</dialog>"},Y=function(t){if(a(t.modal),a(t.overlay),""!==t.contentBackId){var e=W(t.contentBackId);e&&(e.innerHTML=t.modalContent)}if(t.modalFocusBackId){var o=W(t.modalFocusBackId);o&&o.focus()}},Z=function(){var e=arguments.length<=0||void 0===arguments[0]?t:arguments[0];return[].slice.call(e.querySelectorAll("."+o))},tt=function(a){var l=arguments.length<=1||void 0===arguments[1]||arguments[1];Z(a).forEach(function(a){var o=Math.random().toString(32).slice(2,12),l=W(M),n=t.querySelector("body");if(a.setAttribute("id",d+o),a.setAttribute(K,V),null===l||0===l.length){var i=t.createElement("DIV");i.setAttribute("id",M),e(n,i)}}),l&&["click","keydown"].forEach(function(e){t.body.addEventListener(e,function(a){var d=Q(a.target,o);if((J(a.target,o)===!0||""!==d)&&"click"===e){var l=t.querySelector("body"),v=""!==d?W(d):a.target,A=v.hasAttribute(i)===!0?v.getAttribute(i)+"-":"",k=v.hasAttribute(r)===!0?v.getAttribute(r):"",x=v.hasAttribute(s)===!0?v.getAttribute(s):"",L=v.hasAttribute(c)===!0?v.getAttribute(c):"",T=v.hasAttribute(u)===!0?v.getAttribute(u):"",E=v.hasAttribute(b)===!0?v.getAttribute(b):w,B=v.hasAttribute(f)===!0?v.getAttribute(f):E,_=v.hasAttribute(g)===!0?v.getAttribute(g):"",N=v.hasAttribute(n)===!0?v.getAttribute(n):"",q=v.hasAttribute(m)===!0?v.getAttribute(m):"",F=W(M);l.insertAdjacentHTML("beforeEnd",U({text:B,backgroundEnabled:N,prefixClass:A})),l.insertAdjacentHTML("beforeEnd",X({modalText:k,modalPrefixClass:A,backgroundEnabled:x,modalTitle:T,modalCloseText:E,modalCloseTitle:B,modalCloseImgPath:_,modalContentId:x,modalDescribedById:L,modalFocusBackId:v.getAttribute("id")})),F.setAttribute($,"true"),z(l,S);var O=W(C);if(""!==q){var R=W(q);R?R.focus():O.focus()}else O.focus();a.preventDefault()}var K=Q(a.target,p);if((a.target.getAttribute("id")===C||""!==K||a.target.getAttribute("id")===D||J(a.target,p)===!0)&&"click"===e){var l=t.querySelector("body"),F=W(M),V=W(P),Z=W(I)?W(I).innerHTML:"",tt=W(D),et=W(C),at=et.getAttribute(y),ot=et.getAttribute(h),N=tt.getAttribute(H);a.target.getAttribute("id")===D&&"disabled"===N||(Y({modal:V,modalContent:Z,overlay:tt,modalFocusBackId:at,contentBackId:ot,backgroundEnabled:N,fromId:a.target.getAttribute("id")}),F.removeAttribute($),G(l,S))}if(W(P)&&"keydown"===e){var l=t.querySelector("body"),F=W(M),V=W(P),Z=W(I)?W(I).innerHTML:"",tt=W(D),et=W(C),at=et.getAttribute(y),ot=et.getAttribute(h),dt=[].slice.call(V.querySelectorAll(j));27===a.keyCode&&(Y({modal:V,modalContent:Z,overlay:tt,modalFocusBackId:at,contentBackId:ot}),F.removeAttribute($),G(l,S)),9===a.keyCode&&dt.indexOf(a.target)>=0&&(a.shiftKey?a.target===dt[0]&&(dt[dt.length-1].focus(),a.preventDefault()):a.target===dt[dt.length-1]&&(dt[0].focus(),a.preventDefault())),9===a.keyCode&&dt.indexOf(a.target)===-1&&(a.preventDefault(),dt[0].focus())}},!0)})},et=function at(){tt(),document.removeEventListener("DOMContentLoaded",at)};document.addEventListener("DOMContentLoaded",et),window.van11yAccessibleModalWindowAria=tt}(document);
+'use strict';
+
+(function (doc) {
+
+  'use strict';
+
+  var MODAL_JS_CLASS = 'js-modal';
+  var MODAL_ID_PREFIX = 'label_modal_';
+  var MODAL_CLASS_SUFFIX = 'modal';
+  var MODAL_DATA_BACKGROUND_ATTR = 'data-modal-background-click';
+  var MODAL_PREFIX_CLASS_ATTR = 'data-modal-prefix-class';
+  var MODAL_TEXT_ATTR = 'data-modal-text';
+  var MODAL_CONTENT_ID_ATTR = 'data-modal-content-id';
+  var MODAL_DESCRIBEDBY_ID_ATTR = 'data-modal-describedby-id';
+  var MODAL_TITLE_ATTR = 'data-modal-title';
+  var MODAL_FOCUS_TO_ATTR = 'data-modal-focus-toid';
+  var MODAL_CLOSE_TEXT_ATTR = 'data-modal-close-text';
+  var MODAL_CLOSE_TITLE_ATTR = 'data-modal-close-title';
+  var MODAL_CLOSE_IMG_ATTR = 'data-modal-close-img';
+  var MODAL_ROLE = 'dialog';
+
+  var MODAL_BUTTON_CLASS_SUFFIX = 'modal-close';
+  var MODAL_BUTTON_JS_ID = 'js-modal-close';
+  var MODAL_BUTTON_JS_CLASS = 'js-modal-close';
+  var MODAL_BUTTON_CONTENT_BACK_ID = 'data-content-back-id';
+  var MODAL_BUTTON_FOCUS_BACK_ID = 'data-focus-back';
+
+  var MODAL_WRAPPER_CLASS_SUFFIX = 'modal__wrapper';
+  var MODAL_CONTENT_CLASS_SUFFIX = 'modal__content';
+  var MODAL_CONTENT_JS_ID = 'js-modal-content';
+
+  var MODAL_CLOSE_IMG_CLASS_SUFFIX = 'modal__closeimg';
+  var MODAL_CLOSE_TEXT_CLASS_SUFFIX = 'modal-close__text';
+
+  var MODAL_TITLE_ID = 'modal-title';
+  var MODAL_TITLE_CLASS_SUFFIX = 'modal-title';
+
+  var FOCUSABLE_ELEMENTS_STRING = "a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]";
+  var WRAPPER_PAGE_JS = 'js-modal-page';
+
+  var MODAL_JS_ID = 'js-modal';
+
+  var MODAL_OVERLAY_ID = 'js-modal-overlay';
+  var MODAL_OVERLAY_CLASS_SUFFIX = 'modal-overlay';
+  var MODAL_OVERLAY_TXT = 'Close modal';
+  var MODAL_OVERLAY_BG_ENABLED_ATTR = 'data-background-click';
+
+  var VISUALLY_HIDDEN_CLASS = 'invisible';
+  var NO_SCROLL_CLASS = 'no-scroll';
+
+  var ATTR_ROLE = 'role';
+  var ATTR_OPEN = 'open';
+  var ATTR_LABELLEDBY = 'aria-labelledby';
+  var ATTR_DESCRIBEDBY = 'aria-describedby';
+  var ATTR_HIDDEN = 'aria-hidden';
+  //const ATTR_MODAL = 'aria-modal="true"';
+  var ATTR_HASPOPUP = 'aria-haspopup';
+  var ATTR_HASPOPUP_VALUE = 'dialog';
+
+  var findById = function findById(id) {
+    return doc.getElementById(id);
+  };
+
+  var addClass = function addClass(el, className) {
+    if (el.classList) {
+      el.classList.add(className); // IE 10+
+    } else {
+        el.className += ' ' + className; // IE 8+
+      }
+  };
+
+  var removeClass = function removeClass(el, className) {
+    if (el.classList) {
+      el.classList.remove(className); // IE 10+
+    } else {
+        el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' '); // IE 8+
+      }
+  };
+
+  var hasClass = function hasClass(el, className) {
+    if (el.classList) {
+      return el.classList.contains(className); // IE 10+
+    } else {
+        return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className); // IE 8+ ?
+      }
+  };
+  /*const wrapInner = (el, wrapper_el) => { // doesn't work on IE/Edge, f…
+      while (el.firstChild)
+          wrapper_el.append(el.firstChild);
+      el.append(wrapper_el);
+   }*/
+  function wrapInner(parent, wrapper) {
+    if (typeof wrapper === "string") wrapper = document.createElement(wrapper);
+    parent.appendChild(wrapper);
+
+    while (parent.firstChild !== wrapper) wrapper.appendChild(parent.firstChild);
+  }
+
+  function remove(el) {
+    /* node.remove() is too modern for IE≤11 */
+    el.parentNode.removeChild(el);
+  }
+
+  /* gets an element el, search if it is child of parent class, returns id of the parent */
+  var searchParent = function searchParent(el, parentClass) {
+    var found = false;
+    var parentElement = el.parentNode;
+    while (parentElement && found === false) {
+      if (hasClass(parentElement, parentClass) === true) {
+        found = true;
+      } else {
+        parentElement = parentElement.parentNode;
+      }
+    }
+    if (found === true) {
+      return parentElement.getAttribute('id');
+    } else {
+      return '';
+    }
+  };
+
+  /**
+   * Create the template for an overlay
+   * @param  {Object} config
+   * @return {String}
+   */
+  var createOverlay = function createOverlay(config) {
+
+    var id = MODAL_OVERLAY_ID;
+    var overlayText = config.text || MODAL_OVERLAY_TXT;
+    var overlayClass = config.prefixClass + MODAL_OVERLAY_CLASS_SUFFIX;
+    var overlayBackgroundEnabled = config.backgroundEnabled === 'disabled' ? 'disabled' : 'enabled';
+
+    return '<span\n                    id="' + id + '"\n                    class="' + overlayClass + '"\n                    ' + MODAL_OVERLAY_BG_ENABLED_ATTR + '="' + overlayBackgroundEnabled + '"\n                    title="' + overlayText + '"\n                    >\n                    <span class="' + VISUALLY_HIDDEN_CLASS + '">' + overlayText + '</span>\n                  </span>';
+  };
+
+  /**
+   * Create the template for a modal
+   * @param  {Object} config
+   * @return {String}
+   */
+  var createModal = function createModal(config) {
+
+    var id = MODAL_JS_ID;
+    var modalClassName = config.modalPrefixClass + MODAL_CLASS_SUFFIX;
+    var modalClassWrapper = config.modalPrefixClass + MODAL_WRAPPER_CLASS_SUFFIX;
+    var buttonCloseClassName = config.modalPrefixClass + MODAL_BUTTON_CLASS_SUFFIX;
+    var buttonCloseInner = config.modalCloseImgPath ? '<img src="' + config.modalCloseImgPath + '" alt="' + config.modalCloseText + '" class="' + config.modalPrefixClass + MODAL_CLOSE_IMG_CLASS_SUFFIX + '" />' : '<span class="' + config.modalPrefixClass + MODAL_CLOSE_TEXT_CLASS_SUFFIX + '">\n                                          ' + config.modalCloseText + '\n                                         </span>';
+    var contentClassName = config.modalPrefixClass + MODAL_CONTENT_CLASS_SUFFIX;
+    var titleClassName = config.modalPrefixClass + MODAL_TITLE_CLASS_SUFFIX;
+    var title = config.modalTitle !== '' ? '<h1 id="' + MODAL_TITLE_ID + '" class="' + titleClassName + '">\n                                          ' + config.modalTitle + '\n                                         </h1>' : '';
+    var button_close = '<button type="button" class="' + MODAL_BUTTON_JS_CLASS + ' ' + buttonCloseClassName + '" id="' + MODAL_BUTTON_JS_ID + '" title="' + config.modalCloseTitle + '" ' + MODAL_BUTTON_CONTENT_BACK_ID + '="' + config.modalContentId + '" ' + MODAL_BUTTON_FOCUS_BACK_ID + '="' + config.modalFocusBackId + '">\n                               ' + buttonCloseInner + '\n                              </button>';
+    var content = config.modalText;
+    var describedById = config.modalDescribedById !== '' ? ATTR_DESCRIBEDBY + '="' + config.modalDescribedById + '"' : '';
+
+    // If there is no content but an id we try to fetch content id
+    if (content === '' && config.modalContentId) {
+      var contentFromId = findById(config.modalContentId);
+      if (contentFromId) {
+        content = '<div id="' + MODAL_CONTENT_JS_ID + '">\n                              ' + contentFromId.innerHTML + '\n                             </div';
+        // we remove content from its source to avoid id duplicates, etc.
+        contentFromId.innerHTML = '';
+      }
+    }
+
+    return '<dialog id="' + id + '" class="' + modalClassName + '" ' + ATTR_ROLE + '="' + MODAL_ROLE + '" ' + describedById + ' ' + ATTR_OPEN + ' ' + ATTR_LABELLEDBY + '="' + MODAL_TITLE_ID + '">\n                    <div role="document" class="' + modalClassWrapper + '">\n                      ' + button_close + '\n                      <div class="' + contentClassName + '">\n                        ' + title + '\n                        ' + content + '\n                      </div>\n                    </div>\n                  </dialog>';
+  };
+
+  var closeModal = function closeModal(config) {
+
+    remove(config.modal);
+    remove(config.overlay);
+
+    if (config.contentBackId !== '') {
+      var contentBack = findById(config.contentBackId);
+      if (contentBack) {
+        contentBack.innerHTML = config.modalContent;
+      }
+    }
+
+    if (config.modalFocusBackId) {
+      var contentFocus = findById(config.modalFocusBackId);
+      if (contentFocus) {
+        contentFocus.focus();
+      }
+    }
+  };
+
+  /** Find all modals inside a container
+   * @param  {Node} node Default document
+   * @return {Array}
+   */
+  var $listModals = function $listModals() {
+    var node = arguments.length <= 0 || arguments[0] === undefined ? doc : arguments[0];
+    return [].slice.call(node.querySelectorAll('.' + MODAL_JS_CLASS));
+  };
+
+  /**
+   * Build modals for a container
+   * @param  {Node} node
+   */
+  var attach = function attach(node) {
+    var addListeners = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
+    $listModals(node).forEach(function (modal_node) {
+
+      var iLisible = Math.random().toString(32).slice(2, 12);
+      var wrapperBody = findById(WRAPPER_PAGE_JS);
+      // console.log(wrapperBody);
+      var body = doc.querySelector('body');
+
+      modal_node.setAttribute('id', MODAL_ID_PREFIX + iLisible);
+      modal_node.setAttribute(ATTR_HASPOPUP, ATTR_HASPOPUP_VALUE);
+
+      if (wrapperBody === null || wrapperBody.length === 0) {
+        var wrapper = doc.createElement('DIV');
+        wrapper.setAttribute('id', WRAPPER_PAGE_JS);
+        wrapInner(body, wrapper);
+      }
+    });
+
+    if (addListeners) {
+
+      /* listeners */
+      ['click', 'keydown'].forEach(function (eventName) {
+
+        doc.body.addEventListener(eventName, function (e) {
+
+          // click on link modal
+          var parentModalLauncher = searchParent(e.target, MODAL_JS_CLASS);
+          if ((hasClass(e.target, MODAL_JS_CLASS) === true || parentModalLauncher !== '') && eventName === 'click') {
+            var body = doc.querySelector('body');
+            var modalLauncher = parentModalLauncher !== '' ? findById(parentModalLauncher) : e.target;
+            var modalPrefixClass = modalLauncher.hasAttribute(MODAL_PREFIX_CLASS_ATTR) === true ? modalLauncher.getAttribute(MODAL_PREFIX_CLASS_ATTR) + '-' : '';
+            var modalText = modalLauncher.hasAttribute(MODAL_TEXT_ATTR) === true ? modalLauncher.getAttribute(MODAL_TEXT_ATTR) : '';
+            var modalContentId = modalLauncher.hasAttribute(MODAL_CONTENT_ID_ATTR) === true ? modalLauncher.getAttribute(MODAL_CONTENT_ID_ATTR) : '';
+            var modalDescribedById = modalLauncher.hasAttribute(MODAL_DESCRIBEDBY_ID_ATTR) === true ? modalLauncher.getAttribute(MODAL_DESCRIBEDBY_ID_ATTR) : '';
+            var modalTitle = modalLauncher.hasAttribute(MODAL_TITLE_ATTR) === true ? modalLauncher.getAttribute(MODAL_TITLE_ATTR) : '';
+            var modalCloseText = modalLauncher.hasAttribute(MODAL_CLOSE_TEXT_ATTR) === true ? modalLauncher.getAttribute(MODAL_CLOSE_TEXT_ATTR) : MODAL_OVERLAY_TXT;
+            var modalCloseTitle = modalLauncher.hasAttribute(MODAL_CLOSE_TITLE_ATTR) === true ? modalLauncher.getAttribute(MODAL_CLOSE_TITLE_ATTR) : modalCloseText;
+            var modalCloseImgPath = modalLauncher.hasAttribute(MODAL_CLOSE_IMG_ATTR) === true ? modalLauncher.getAttribute(MODAL_CLOSE_IMG_ATTR) : '';
+            var backgroundEnabled = modalLauncher.hasAttribute(MODAL_DATA_BACKGROUND_ATTR) === true ? modalLauncher.getAttribute(MODAL_DATA_BACKGROUND_ATTR) : '';
+            var modalGiveFocusToId = modalLauncher.hasAttribute(MODAL_FOCUS_TO_ATTR) === true ? modalLauncher.getAttribute(MODAL_FOCUS_TO_ATTR) : '';
+
+            var wrapperBody = findById(WRAPPER_PAGE_JS);
+            // console.log(wrapperBody);
+            if (!wrapperBody) {
+              attach();
+            }
+
+            // insert overlay
+            body.insertAdjacentHTML('beforeEnd', createOverlay({
+              text: modalCloseTitle,
+              backgroundEnabled: backgroundEnabled,
+              prefixClass: modalPrefixClass
+            }));
+
+            // insert modal
+            body.insertAdjacentHTML('beforeEnd', createModal({
+              modalText: modalText,
+              modalPrefixClass: modalPrefixClass,
+              backgroundEnabled: modalContentId,
+              modalTitle: modalTitle,
+              modalCloseText: modalCloseText,
+              modalCloseTitle: modalCloseTitle,
+              modalCloseImgPath: modalCloseImgPath,
+              modalContentId: modalContentId,
+              modalDescribedById: modalDescribedById,
+              modalFocusBackId: modalLauncher.getAttribute('id')
+            }));
+
+            // hide page
+            wrapperBody = findById(WRAPPER_PAGE_JS);
+            if (!wrapperBody) {
+              attach();
+            }
+            wrapperBody.setAttribute(ATTR_HIDDEN, 'true');
+
+            // add class noscroll to body
+            addClass(body, NO_SCROLL_CLASS);
+
+            // give focus to close button or specified element
+            var closeButton = findById(MODAL_BUTTON_JS_ID);
+            if (modalGiveFocusToId !== '') {
+              var focusTo = findById(modalGiveFocusToId);
+              if (focusTo) {
+                focusTo.focus();
+              } else {
+                closeButton.focus();
+              }
+            } else {
+              closeButton.focus();
+            }
+
+            e.preventDefault();
+          }
+
+          // click on close button or on overlay not blocked
+          var parentButton = searchParent(e.target, MODAL_BUTTON_JS_CLASS);
+          if ((e.target.getAttribute('id') === MODAL_BUTTON_JS_ID || parentButton !== '' || e.target.getAttribute('id') === MODAL_OVERLAY_ID || hasClass(e.target, MODAL_BUTTON_JS_CLASS) === true) && eventName === 'click') {
+            var body = doc.querySelector('body');
+            var wrapperBody = findById(WRAPPER_PAGE_JS);
+            var modal = findById(MODAL_JS_ID);
+            var modalContent = findById(MODAL_CONTENT_JS_ID) ? findById(MODAL_CONTENT_JS_ID).innerHTML : '';
+            var overlay = findById(MODAL_OVERLAY_ID);
+            var modalButtonClose = findById(MODAL_BUTTON_JS_ID);
+            var modalFocusBackId = modalButtonClose.getAttribute(MODAL_BUTTON_FOCUS_BACK_ID);
+            var contentBackId = modalButtonClose.getAttribute(MODAL_BUTTON_CONTENT_BACK_ID);
+            var backgroundEnabled = overlay.getAttribute(MODAL_OVERLAY_BG_ENABLED_ATTR);
+
+            if (!(e.target.getAttribute('id') === MODAL_OVERLAY_ID && backgroundEnabled === 'disabled')) {
+
+              closeModal({
+                modal: modal,
+                modalContent: modalContent,
+                overlay: overlay,
+                modalFocusBackId: modalFocusBackId,
+                contentBackId: contentBackId,
+                backgroundEnabled: backgroundEnabled,
+                fromId: e.target.getAttribute('id')
+              });
+
+              // show back page
+              wrapperBody.removeAttribute(ATTR_HIDDEN);
+
+              // remove class noscroll to body
+              removeClass(body, NO_SCROLL_CLASS);
+            }
+          }
+
+          // strike a key when modal opened
+          if (findById(MODAL_JS_ID) && eventName === 'keydown') {
+            var body = doc.querySelector('body');
+            var wrapperBody = findById(WRAPPER_PAGE_JS);
+            var modal = findById(MODAL_JS_ID);
+            var modalContent = findById(MODAL_CONTENT_JS_ID) ? findById(MODAL_CONTENT_JS_ID).innerHTML : '';
+            var overlay = findById(MODAL_OVERLAY_ID);
+            var modalButtonClose = findById(MODAL_BUTTON_JS_ID);
+            var modalFocusBackId = modalButtonClose.getAttribute(MODAL_BUTTON_FOCUS_BACK_ID);
+            var contentBackId = modalButtonClose.getAttribute(MODAL_BUTTON_CONTENT_BACK_ID);
+            var $listFocusables = [].slice.call(modal.querySelectorAll(FOCUSABLE_ELEMENTS_STRING));
+
+            // esc
+            if (e.keyCode === 27) {
+
+              closeModal({
+                modal: modal,
+                modalContent: modalContent,
+                overlay: overlay,
+                modalFocusBackId: modalFocusBackId,
+                contentBackId: contentBackId
+              });
+
+              // show back page
+              wrapperBody.removeAttribute(ATTR_HIDDEN);
+
+              // remove class noscroll to body
+              removeClass(body, NO_SCROLL_CLASS);
+            }
+
+            // tab or Maj Tab in modal => capture focus
+            if (e.keyCode === 9 && $listFocusables.indexOf(e.target) >= 0) {
+
+              // maj-tab on first element focusable => focus on last
+              if (e.shiftKey) {
+                if (e.target === $listFocusables[0]) {
+                  $listFocusables[$listFocusables.length - 1].focus();
+                  e.preventDefault();
+                }
+              } else {
+                // tab on last element focusable => focus on first
+                if (e.target === $listFocusables[$listFocusables.length - 1]) {
+                  $listFocusables[0].focus();
+                  e.preventDefault();
+                }
+              }
+            }
+
+            // tab outside modal => put it in focus
+            if (e.keyCode === 9 && $listFocusables.indexOf(e.target) === -1) {
+              e.preventDefault();
+              $listFocusables[0].focus();
+            }
+          }
+        }, true);
+      });
+    }
+  };
+
+  var onLoad = function onLoad() {
+    attach();
+    document.removeEventListener('DOMContentLoaded', onLoad);
+  };
+
+  document.addEventListener('DOMContentLoaded', onLoad);
+
+  window.van11yAccessibleModalWindowAria = attach;
+})(document);
