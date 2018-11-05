@@ -1,51 +1,40 @@
 <!-- for page 1 of forms with prefill -->
 
-<!-- <script type="text/javascript" src="https://van11y.net/downloads/modal/dist/van11y-accessible-modal-window-aria.js"></script> -->
-<!-- <script type="text/javascript" src="https://seiu503signup.org/scripts/van11y_accessible_modal.js"></script> -->
-
 <script>
 
   // when page loads,
   document.addEventListener("DOMContentLoaded", function(){
-  	console.log('domcontent loaded');
 
-  	const fullName = document.getElementById('tfa_284').value;
-  	console.log(fullName);
+  	var fullName = document.getElementById('tfa_298').value;
 
 		// append hidden button to DOM
 		var hiddenButton = document.createElement('button');
-		// hiddenButton.style.cssText = 'position: absolute; left: -999999;';
     hiddenButton.setAttribute("id", "hiddenButton");
-    hiddenButton.setAttribute("innerHTML", "hiddenButton");
 		hiddenButton.setAttribute("data-modal-prefix-class", "simple-animated");
-		hiddenButton.setAttribute("data-modal-content-id", "tfa_294");
+		hiddenButton.setAttribute("data-modal-content-id", "tfa_295");
 		hiddenButton.setAttribute("data-modal-title", "Are you " + fullName + "?");
 		hiddenButton.setAttribute("data-modal-close-text", "Yes, I'm " + fullName);
 		hiddenButton.setAttribute("data-modal-close-title", "Yes, I'm " + fullName);
 		hiddenButton.setAttribute("class", "js-modal invisible");
-		// hiddenButton.style.cssText = "height:100px; width:200px; background:white; position:absolute; bottom:0;";
 		document.body.insertBefore(hiddenButton, document.body.firstChild);
-		// document.body.appendChild(hiddenButton);
-		// console.log('appended hiddenButton');
-		console.log(hiddenButton);
-
-		// hide warning section
-  	// document.getElementById('tfa_294').style.display = 'none';
 
   	// check if contact ID is prepopulated from query params
-  	const urlParams = new URLSearchParams(window.location.search);
-		const contactID = urlParams.get('tfa_281');
-  	console.log(contactID);
+  	var urlParams = new URLSearchParams(window.location.search);
+		var contactID = urlParams.get('tfa_281');
+		console.log(contactID);
 
-  	// check if FA found a single SF contact
-  	// and was able to populate the fullName field
+		// check if redirect from link request display form (form id 134)
+		var redirect = urlParams.get('redirect');
+		console.log(redirect);
 
-  	// if contact ID and fullName both exist, simulate a click on the
+  	// check if (1) FA found a single SF contact
+  	// (2) was able to populate the fullName field, and
+  	// (3) is not redirected from the link request / display form.
+  	// if all 3 conditions met, simulate a click on the
   	// hidden button to trigger the modal opening
-  	if (contactID && fullName) {
-  		console.log('conditions met for hiddenButton click');
+  	if (contactID && fullName && !redirect) {
+  		console.log('conditions met for modal open');
   		document.getElementById("hiddenButton").click();
-  		// document.getElementById('tfa_294').style.display = 'block';
   	}
 
   	// save the form ID (from window.location.pathname) to a variable
@@ -57,29 +46,25 @@
   	// save references to the form ID and title
   	// for submitting to the next form to generate the prefill link
   	const formID = getFormIdFromPathname(window.location.pathname);
-  	console.log(formID);
   	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
   	console.log(formTitle);
 
   	// generate the link request URL
   	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
-  	console.log(requestURLWithQueryParams);
 
   	// append link to linkInfo display div
-  	const linkInfo = document.getElementById('tfa_292');
+  	const linkInfo = document.getElementById('tfa_299');
   	const linkHtml = '<a class="custom-link-text" href="' + requestURLWithQueryParams + '">I&#39;m not '+ fullName + ', get me my own link</a>';
-  	console.log(linkHtml);
 
   	linkInfo.innerHTML += linkHtml;
-
 
   });
 
 </script>
 
 <style>
-
-	#tfa_284 {
+/*	fullname display */
+#tfa_298 {
 		border: 0;
 		font-size: 1.2em;
 		font-weight: bold;
@@ -89,7 +74,8 @@
 		padding: 10px 0;
 	}
 
-	#tfa_292-HTML {
+/*	add spacing between elements in modal */
+	#tfa_299-HTML {
 		margin: 10px 0 30px 0;
 	}
 
@@ -160,7 +146,7 @@
 	.simple-animated-modal__content {
 		text-align: center;
 	}
-
+/* "Yes, I'm (name)" button */
 	.simple-modal-close,
 	.simple-animated-modal-close,
 	.custom-link-text {
@@ -194,6 +180,7 @@
 	.simple-modal-close:active {
 	  background-color: #44dc38;
 	}
+	/* "No, I'm not (name), get me a new link" button */
 	.custom-link-text {
 		position: static;
 		bottom: auto;
@@ -227,9 +214,7 @@
 	  }
 	}
 
-	/* it can be easily adapted in media-queries for tablets/mobile */
-
-	/* for this example: tablets */
+	/* tablet */
 	@media (max-width: 55.625em) {
 
 	  .simple-modal,
@@ -242,7 +227,7 @@
 
 	}
 
-	/* for this example: mobile */
+	/* mobile */
 	@media (max-width: 44.375em) {
 
 	  .simple-modal,
