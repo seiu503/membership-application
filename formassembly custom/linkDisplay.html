@@ -25,10 +25,14 @@
 		// pull form ID from query parameters
   	const urlParams = new URLSearchParams(window.location.search);
 		const formID = urlParams.get('tfa_7');
-  	console.log(formID);
+  	console.log(`formID: ${formID}`);
 
   	// get contact ID from hidden field prefilled by FA SF connector
   	const contactID = document.getElementById('tfa_1').value;
+
+  	// get contactIDFieldID from hidden field prefilled query params
+  	const contactIDFieldID = document.getElementById('tfa_19').value;
+  	console.log(`contactIDFieldID: ${contactIDFieldID}`);
 
   	// check if fullName was successfully populated from contact ID
   	const fullName = document.getElementById('tfa_2').value;
@@ -41,7 +45,7 @@
   		customLinkSection.style.display = 'block';
 
   		// generate custom link from base URL, form ID, and contact ID
-	  	const customizedLink = 'https://seiu503.tfaforms.net/' + formID + '?tfa_281=' + contactID + '&redirect=1';
+	  	const customizedLink = 'https://seiu503.tfaforms.net/' + formID + '?' + contactIDFieldID + '=' + contactID + '&redirect=1';
 	  	console.log(customizedLink);
 
 	  	// save reference to link display div

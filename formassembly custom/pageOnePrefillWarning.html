@@ -1,26 +1,37 @@
-<!-- for page 1 of forms with prefill -->
-
 <script>
 
   // when page loads,
   document.addEventListener("DOMContentLoaded", function(){
+  	console.log('dom loaded');
 
-  	var fullName = document.getElementById('tfa_298').value;
+  	// **** **** replace with field id for fullname **** **** //
+  	var fullName = document.getElementById('tfa_517').value;
+  	console.log(fullName);
 
 		// append hidden button to DOM
 		var hiddenButton = document.createElement('button');
     hiddenButton.setAttribute("id", "hiddenButton");
 		hiddenButton.setAttribute("data-modal-prefix-class", "simple-animated");
-		hiddenButton.setAttribute("data-modal-content-id", "tfa_295");
+		// **** **** replace with id for modal content block wrapper **** **** //
+		hiddenButton.setAttribute("data-modal-content-id", "tfa_514");
 		hiddenButton.setAttribute("data-modal-title", "Are you " + fullName + "?");
 		hiddenButton.setAttribute("data-modal-close-text", "Yes, I'm " + fullName);
 		hiddenButton.setAttribute("data-modal-close-title", "Yes, I'm " + fullName);
 		hiddenButton.setAttribute("class", "js-modal invisible");
 		document.body.insertBefore(hiddenButton, document.body.firstChild);
 
-  	// check if contact ID is prepopulated from query params
+  	// find field ID for contact id field
   	var urlParams = new URLSearchParams(window.location.search);
-		var contactID = urlParams.get('tfa_281');
+  	var urlParamsArray = []
+  	for(var key of urlParams.keys()) {
+		  urlParamsArray.push(key);
+		}
+		var contactIDFieldID = urlParamsArray[0];
+		console.log(`contactIDFieldID: ${contactIDFieldID}`);
+
+		// check if contact ID is prepopulated from query params
+  	// **** **** replace with field id for contact ID **** **** //
+		var contactID = urlParams.get(contactIDFieldID);
 		console.log(contactID);
 
 		// check if redirect from link request display form (form id 134)
@@ -33,7 +44,7 @@
   	// if all 3 conditions met, simulate a click on the
   	// hidden button to trigger the modal opening
   	if (contactID && fullName && !redirect) {
-  		console.log('conditions met for modal open');
+  		console.log('modal open');
   		document.getElementById("hiddenButton").click();
   	}
 
@@ -43,17 +54,20 @@
   		return path.replace(/\D/g,'');
   	}
 
-  	// save references to the form ID and title
+
+  	// save references to the form ID, title, and contact ID field ID
   	// for submitting to the next form to generate the prefill link
   	const formID = getFormIdFromPathname(window.location.pathname);
   	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
   	console.log(formTitle);
 
   	// generate the link request URL
-  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_8=' + contactIDFieldID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	console.log(`requestURLWithQueryParams: ${requestURLWithQueryParams}`);
 
   	// append link to linkInfo display div
-  	const linkInfo = document.getElementById('tfa_299');
+  	// // **** **** replace with field id for empty link info div **** **** //
+  	const linkInfo = document.getElementById('linkInfo');
   	const linkHtml = '<a class="custom-link-text" href="' + requestURLWithQueryParams + '">I&#39;m not '+ fullName + ', get me my own link</a>';
 
   	linkInfo.innerHTML += linkHtml;
@@ -64,7 +78,8 @@
 
 <style>
 /*	fullname display */
-#tfa_298 {
+/**** **** replace with field id for fullname **** ****/
+#tfa_517 {
 		border: 0;
 		font-size: 1.2em;
 		font-weight: bold;
@@ -75,7 +90,8 @@
 	}
 
 /*	add spacing between elements in modal */
-	#tfa_299-HTML {
+/*  unused ??? */
+	#tfa_292-HTML {
 		margin: 10px 0 30px 0;
 	}
 
