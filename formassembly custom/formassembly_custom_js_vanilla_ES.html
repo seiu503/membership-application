@@ -1,4 +1,4 @@
-<!-- Online Membership Application P1 custom js / css -->
+<!-- Online Membership Application P1 SPANISH form ID 253 custom js / css -->
 
 <style>
   .label {text-transform: uppercase; font-size: .8em; color: #383932 !important; padding: 0 0 4px 0 !important;}
@@ -21,7 +21,7 @@
     "Hogares de cuidado temporal para adultos": 984,
     "Cuidado infantil familiar": 986,
     "Addus": 982,
-    "Trabajadores de atención domiciliaria del estado": 988,
+    "Trabajador de atención domiciliaria del estado": 988,
     "Trabajador de apoyo personal de PPL": 150,
     "Trabajador de apoyo personal del estado": 100,
     "Empleados del Condado de Baker": 970,
@@ -129,9 +129,12 @@
       var dd = document.getElementById('tfa_276').value;
       var yyyy = document.getElementById('tfa_278').value;
 
-      var newBirthdate = mm + '/' + dd + '/' + yyyy;
-      console.log(newBirthdate);
+      var newBirthdate = dd + '/' + mm + '/' + yyyy;
+      // have to format this in MX date style bc localization settings
+      // are submitting to sf with date reversed
+      console.log(`concatenated DOB = ${newBirthdate}`);
       document.getElementById('tfa_16').value = newBirthdate;
+      console.log(document.getElementById('tfa_16').value);
     }
 
   document.addEventListener("DOMContentLoaded", function(){

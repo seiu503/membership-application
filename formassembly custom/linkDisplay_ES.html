@@ -1,0 +1,94 @@
+<!-- Your Customized Link SPANISH (form ID 263) -->
+
+<style>
+	#tfa_2, #tfa_3 {
+		border: 0;
+    font-weight: bold;
+	}
+
+	#tfa_2, #tfa_2-D .inputWrapper, #tfa_3, #tfa_3-D, #tfa_3-D .inputWrapper, #customized-link, #tfa_13-HTML, #tfa_2-D {
+		width: 100% !important;
+		text-align: center;
+	}
+</style>
+
+<script>
+	// Don't forget to enable prefill connector on link display form
+	// or it won't work...
+	// when page loads,
+	document.addEventListener("DOMContentLoaded", function(){
+
+		// hide both display divs to start
+		const customLinkSection = document.getElementById('tfa_14');
+		const blankLinkSection = document.getElementById('tfa_15');
+		customLinkSection.style.display = 'none';
+		blankLinkSection.style.display = 'none';
+
+		// pull form ID from query parameters
+  	const urlParams = new URLSearchParams(window.location.search);
+		const formID = urlParams.get('tfa_7');
+  	console.log(`formID: ${formID}`);
+
+  	// get contact ID from hidden field prefilled by FA SF connector
+  	const contactID = document.getElementById('tfa_1').value;
+  	console.log(`contactID: ${contactID}`);
+
+  	// get contactIDFieldID from hidden field prefilled query params
+  	const contactIDFieldID = document.getElementById('tfa_19').value;
+  	console.log(`contactIDFieldID: ${contactIDFieldID}`);
+
+  	// check if fullName was successfully populated from contact ID
+  	const fullName = document.getElementById('tfa_2').value;
+  	console.log(`fullName: ${fullName}`);
+
+  	// if a contact ID and fullName both exist, generate the custom link
+  	// and display it
+
+  	if (contactID && fullName) {
+  		// show display section
+  		customLinkSection.style.display = 'block';
+
+  		// generate custom link from base URL, form ID, and contact ID
+	  	const customizedLink = 'https://seiu503.tfaforms.net/' + formID + '?' + contactIDFieldID + '=' + contactID + '&redirect=1';
+	  	console.log(customizedLink);
+
+	  	// save reference to link display div
+	  	const linkInfo = document.getElementById('customized-link');
+
+	  	// generate html to display link and append to link display div
+	  	const linkHtml = '<a href=' + customizedLink + '>' + customizedLink + '</a>';
+	  	console.log(linkHtml);
+	  	linkInfo.innerHTML += linkHtml;
+  	} else {
+  		console.log(`Something's missing: fullName: ${fullName}, contactID: ${contactID}`);
+  		// if not, let user know that no link was found and provide link to
+  		//  blank form instead
+
+  		// show display section
+  		blankLinkSection.style.display = 'block';
+
+  		const blankLink = 'https://seiu503.tfaforms.net/' + formID;
+	  	console.log(blankLink);
+	  	const userEmail = document.getElementById('tfa_11').value;
+
+	  	// save reference to link display div and email display div
+	  	const blankLinkDisplay = document.getElementById('tfa_17-HTML');
+	  	const emailDisplay = document.getElementById('tfa_16');
+	  	const blankLinkHtml = '<a href="' + blankLink + '">' + blankLink + '</a>'
+	  	console.log(blankLinkHtml);
+
+	  	// append html to display divs
+	  	emailDisplay.innerHTML += '<span style="font-weight: bold">' + userEmail + '</span'
+	  	blankLinkDisplay.innerHTML += blankLinkHtml;
+
+  	}
+
+
+
+  	// hide submit button
+  	document.getElementById('263-A').style.display = 'none';
+
+
+  });
+
+</script>
