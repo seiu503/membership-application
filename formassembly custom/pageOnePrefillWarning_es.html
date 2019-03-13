@@ -1,0 +1,260 @@
+<script>
+
+  // when page loads,
+  document.addEventListener("DOMContentLoaded", function(){
+  	console.log('dom loaded');
+
+  	// **** **** replace with field id for fullname **** **** //
+  	var fullName = document.getElementById('tfa_517').value;
+  	console.log(fullName);
+
+		// append hidden button to DOM
+		var hiddenButton = document.createElement('button');
+    hiddenButton.setAttribute("id", "hiddenButton");
+		hiddenButton.setAttribute("data-modal-prefix-class", "simple-animated");
+		// **** **** replace with id for modal content block wrapper **** **** //
+		hiddenButton.setAttribute("data-modal-content-id", "tfa_514");
+		hiddenButton.setAttribute("data-modal-title", "¿Es usted " + fullName + "?");
+		hiddenButton.setAttribute("data-modal-close-text", "Sí, soy " + fullName);
+		hiddenButton.setAttribute("data-modal-close-title", "Sí, soy " + fullName);
+		hiddenButton.setAttribute("class", "js-modal invisible");
+		document.body.insertBefore(hiddenButton, document.body.firstChild);
+
+  	// find field ID for contact id field
+  	var urlParams = new URLSearchParams(window.location.search);
+  	var urlParamsArray = []
+  	for(var key of urlParams.keys()) {
+		  urlParamsArray.push(key);
+		}
+		var contactIDFieldID = urlParamsArray[0];
+		console.log(`contactIDFieldID: ${contactIDFieldID}`);
+
+		// check if contact ID is prepopulated from query params
+  	// **** **** replace with field id for contact ID **** **** //
+		var contactID = urlParams.get(contactIDFieldID);
+		console.log(contactID);
+
+		// check if redirect from link request display form (form id 134)
+		var redirect = urlParams.get('redirect');
+		console.log(redirect);
+
+  	// check if (1) FA found a single SF contact
+  	// (2) was able to populate the fullName field, and
+  	// (3) is not redirected from the link request / display form.
+  	// if all 3 conditions met, simulate a click on the
+  	// hidden button to trigger the modal opening
+  	if (contactID && fullName && !redirect) {
+  		console.log('modal open');
+  		document.getElementById("hiddenButton").click();
+  	}
+
+  	// save the form ID (from window.location.pathname) to a variable
+  	// for generating the request URL
+	 	const getFormIdFromPathname = (path) => {
+  		return path.replace(/\D/g,'');
+  	}
+
+
+  	// save references to the form ID, title, and contact ID field ID
+  	// for submitting to the next form to generate the prefill link
+  	const formID = getFormIdFromPathname(window.location.pathname);
+  	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
+  	console.log(formTitle);
+
+  	// generate the link request URL
+  	// NEED TO CHANGE THIS LINK FOR SPANISH VERSION (133 = EN, 262 = ES)
+  	// and eventually generate dynamically based on language var
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/262?tfa_5=' + formID + '&tfa_8=' + contactIDFieldID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	console.log(`requestURLWithQueryParams: ${requestURLWithQueryParams}`);
+
+  	// append link to linkInfo display div
+  	// // **** **** replace with field id for empty link info div **** **** //
+  	const linkInfo = document.getElementById('linkInfo');
+  	const linkHtml = '<a class="custom-link-text" href="' + requestURLWithQueryParams + '">No soy '+ fullName + ', envíenme mi propio enlace.</a>';
+
+  	linkInfo.innerHTML += linkHtml;
+
+  });
+
+</script>
+
+<style>
+/*	fullname display */
+/**** **** replace with field id for fullname **** ****/
+#tfa_517 {
+		border: 0;
+		font-size: 1.2em;
+		font-weight: bold;
+		background: transparent;
+		text-align: center;
+		margin: auto;
+		padding: 10px 0;
+	}
+
+/*	add spacing between elements in modal */
+/*  unused ??? */
+	#tfa_292-HTML {
+		margin: 10px 0 30px 0;
+	}
+
+	dialog {
+	  display: block;
+	  border: 0;
+	}
+	/* screenreader only style */
+	.invisible {
+		position: absolute;
+    top: -1000;
+    left: -1000;
+    height: 1px;
+    width: 1px;
+    text-align: left;
+    overflow: hidden;
+	}
+	/* removes scroll when modal is opened */
+	.no-scroll {
+	  overflow: hidden;
+	}
+	/* overlay covers everything */
+	.simple-modal-overlay,
+	.simple-animated-modal-overlay {
+	  position: fixed;
+	  top: 0;
+	  bottom: 0;
+	  right: 0;
+	  left: 0;
+	  background: #fff;
+	  opacity: .8;
+	  z-index: 666;
+	  cursor: pointer;
+	}
+	.simple-modal-overlay[data-background-click="disabled"],
+	.simple-animated-modal-overlay[data-background-click="disabled"] {
+	  cursor: auto;
+	}
+	.simple-animated-modal-overlay  {
+	  animation: fadewhite ease .5s 1 normal ;
+	}
+
+	@keyframes fadewhite {
+	  0% {
+	    opacity: 0;
+	  }
+	  100% {
+	    opacity: .8;
+	  }
+	}
+	/* modal */
+	.simple-modal,
+	.simple-animated-modal {
+		font-family: "Open Sans", sans-serif;
+	  position: fixed;
+	  left: 15%;
+	  top: 5%;
+	  width: 70%;
+	  max-height: 98vh;
+	  border: 2px solid #fc9802;
+	  background: #f4f2c8;
+	  z-index: 667;
+	  padding: 2em 2em 6em 2em;
+	  right: auto;
+	  overflow: hidden;
+	}
+
+	.simple-animated-modal__content {
+		text-align: center;
+	}
+/* "Yes, I'm (name)" button */
+	.simple-modal-close,
+	.simple-animated-modal-close,
+	.custom-link-text {
+	  position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: 1.6em auto .4em auto;
+    background-color: #2f9d26;
+    font-weight: normal;
+    font-size: 1em;
+    color: rgb(254, 254, 255);
+    box-shadow: none;
+    padding: 1em 2em;
+    border-radius: 0.25em;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    transition: all 0.25s linear 0s;
+    cursor: pointer;
+	}
+	.simple-modal-close:focus,
+	.simple-modal-close:hover,
+	.simple-modal-close:active {
+	  outline: 1px dotted #fff;
+	}
+	.simple-animated-modal-close:hover,
+	.simple-animated-modal-close:active,
+	.simple-modal-close:hover,
+	.simple-modal-close:active {
+	  background-color: #44dc38;
+	}
+	/* "No, I'm not (name), get me a new link" button */
+	.custom-link-text {
+		position: static;
+		bottom: auto;
+		left: auto;
+		transform: none;
+		margin: auto;
+		background-color: #aa0627;
+		text-decoration: none;
+	}
+	.custom-link-text:hover,
+	.custom-link-text:focus {
+		background-color: #e00834;
+	}
+
+	.simple-animated-modal {
+	  animation: apparition ease .5s 1 normal ;
+	}
+
+	@keyframes apparition {
+	  0% {
+	    opacity: 0;
+	    max-height: 0;
+	    width: 0;
+	    left: 50%;
+	  }
+	  100% {
+	    opacity: 1;
+	    max-height: 100%;
+	    width: 70%;
+	    left: 15%;
+	  }
+	}
+
+	/* tablet */
+	@media (max-width: 55.625em) {
+
+	  .simple-modal,
+	  .simple-animated-modal {
+	    left: 5%;
+	    top: 5%;
+	    height: 90%;
+	    width: 90%;
+	  }
+
+	}
+
+	/* mobile */
+	@media (max-width: 44.375em) {
+
+	  .simple-modal,
+	  .simple-animated-modal {
+	    left: 1%;
+	    top: 1%;
+	    width: 98%;
+	    height: 98%;
+	  }
+
+	}
+</style>
