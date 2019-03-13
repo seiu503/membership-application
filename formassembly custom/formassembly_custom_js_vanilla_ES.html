@@ -1,0 +1,228 @@
+<!-- Online Membership Application P1 custom js / css -->
+
+<style>
+  .label {text-transform: uppercase; font-size: .8em; color: #383932 !important; padding: 0 0 4px 0 !important;}
+  .wFormContainer {width: 450px; max-width: 100%;}
+  .wForm {width: 450px; max-width: 100%;}
+  .wForm .inputWrapper {width: 100% !important}
+  #tfa_259-L :hover {color: blue; text-decoration: underline; cursor: pointer; tabindex}
+  #tfa_259_L :focus { box-shadow: 0 0 5px 1px #08F; }
+
+  /*  dob field styles */
+
+  #tfa_274-D, #tfa_276-D {width: 80px !important;}
+  #tfa_274-D, #tfa_276-D, #tfa_278-D {margin-top:5px;}
+  #tfa_278-D {max-width: 120px;}
+  #tfa_279-L {width: 100%; margin: 20px 0 0 8px;}
+</style>
+
+<script>
+  var agencyMap = {
+    "Hogares de cuidado temporal para adultos": 984,
+    "Cuidado infantil familiar": 986,
+    "Addus": 982,
+    "Trabajadores de atención domiciliaria del estado": 988,
+    "Trabajador de apoyo personal de PPL": 150,
+    "Trabajador de apoyo personal del estado": 100,
+    "Empleados del Condado de Baker": 970,
+    "Servicio de transporte público de Basin": 977,
+    "Distrito de irrigación de Oregon Central": 992,
+    "Empleados de la Ciudad de Beaverton": 990,
+    "Ciudad de Cannon Beach": 921,
+    "Ciudad de Pendleton": 938,
+    "Empleados de la Ciudad de Springfield": 995,
+    "Empleados de la Ciudad de Tigard": 993,
+    "Ciudad de Wilsonville": 926,
+    "Junta de Aguas de Coos Bay-North Bend": 935,
+    "Empleados del Condado de Curry": 985,
+    "Empleados del Condado de Jackson": 925,
+    "Condado de Josephine": 951,
+    "Consejo de Gobiernos de Lane de Servicios para Adultos Mayores y Personas con Discapacidades (LCOG SDSD, por sus siglas en inglés)": 908,
+    "Asociación de empleados del Condado de Linn": 981,
+    "Empleados del Condado de Marion": 940,
+    "Consejo de Gobiernos del Oeste de Cascades Oregon": 937,
+    "Empleados de las Escuelas Públicas de Portland": 810,
+    "Asociación de empleados de la Ciudad de Dalles": 910,
+    "Departamento de Carreteras del Condado de Wallowa": 923,
+    "Empleados profesionales del Condado de Wallowa": 924,
+    "Avalon Healthcare": 974,
+    "Servicios de Salud de Avamere": 973,
+    "Atención para ancianos Benicia": 983,
+    "Servicios de Salud de Dakavia": 980,
+    "EmpRes Healthcare": 972,
+    "Centros de salud de Extendicare": 989,
+    "Grupo de Servicios de Salud (HCSG)": 969,
+    "PinnacleCare": 974,
+    "Prestige": 971,
+    "Universidad del Este de Oregon": 58010,
+    "Instituto de Tecnología de Oregon": 58018,
+    "Universidad Estatal de Oregon": 58030,
+    "Universidad Estatal de Portland": 58090,
+    "Universidad del Sur de Oregon": 58040,
+    "Universidad de Oregon": 58050,
+    "Universidad del Oeste de Oregon": 58020,
+    "Alvord Taylor": 999,
+    "Proyecto de SIDA Cascade": 901,
+    "Coda": 963,
+    "Education Northwest (antes NWREL)": 905,
+    "Programa de vida asistida de Oregon": 902,
+    "Centro para niños de Parry (Parry center for children)": 987,
+    "Comisión de Radiodifusión Pública": 57000,
+    "El Centro Infantil (The Child Center)": 904,
+    "Junta de Enfermería (Board of Nursing)": 85100,
+    "Junta de Farmacia (Board of Pharmacy)": 85500,
+    "Departamento de Trabajo e Industrias": 83900,
+    "Comisión para las Personas Ciegas (Commission for the Blind)": 58500,
+    "Junta de Colegios Comunitarios (Community College Board)": 58600,
+    "Junta de Odontología (Dentistry Board)": 83400,
+    "Departamento de Servicios Administrativos": 10700,
+    "Departamento de Agricultura": 60300,
+    "Departamento de Servicios Comerciales y para el Consumidor": 44000,
+    "Departamento de Educación": 58100,
+    "Departamento de Ciencias Forestales": 62900,
+    "Departamento de Justicia": 13700,
+    "Departamento de Hacienda": 15000,
+    "Departamento de Transporte": 73000,
+    "Departamento del Tesoro": 17000,
+    "Departamento de Asuntos de Veteranos": 27400,
+    "DHS/OHA": 10000,
+    "División de Empleo": 47100,
+    "Agencia de Licencias de Salud (Health Licensing Agency)": 83300,
+    "Comisión coordinadora de educación superior": 52500,
+    "Oficina de Servicios de Colegios Comunitarios": 58120,
+    "Departamento de Parques y Recreación de Oregon": 73410,
+    "Departamento de Aviación de Oregon": 10900,
+    "Departamento de Pesca y Vida Silvestre de Oregon": 63500,
+    "Agencia de Licencias de Salud de Oregon (Oregon Health Licensing Agency)": 83100,
+    "Servicios Comunitarios y de Vivienda de Oregon": 91400,
+    "Junta Médica de Oregon (Oregon Medical Board)": 84700,
+    "Feria Estatal y Centro de Exposiciones de Oregon": 62200,
+    "Biblioteca Estatal de Oregon": 54300,
+    "Comisión de Asistencia Estudiantil de Oregon": 57500,
+    "Junta de Mejora de las Cuencas de Oregon": 69100,
+    "Correccional Juvenil de Oregon": 41500,
+    "Junta de Examinadores de Psicólogos (Psychologists Examiners Board)": 12200,
+    "Servicios de Jubilación de Empleados Públicos": 45900,
+    "Junta Estatal de Terapeutas del Masaje (State Board of Massage Therapists)": 96800,
+    "Estándares y Prácticas de Maestros": 58400,
+    "Departamento de Recursos Hídricos": 69000
+  };
+
+  function getAgencyNumber(employerName) {
+    return agencyMap[employerName];
+  }
+
+  // get text value of selected option
+  function getSelectedText(elementId) {
+    var el = document.getElementById(elementId);
+
+    if (el.selectedIndex == -1)
+        return null;
+
+    return el.options[el.selectedIndex].text;
+  }
+
+  // generate concatenated birthdate string to submit to SF
+  // and set the value of the hidden birthdate field
+  function updateBirthdateString() {
+      var mm = document.getElementById('tfa_274').value;
+      var dd = document.getElementById('tfa_276').value;
+      var yyyy = document.getElementById('tfa_278').value;
+
+      var newBirthdate = mm + '/' + dd + '/' + yyyy;
+      console.log(newBirthdate);
+      document.getElementById('tfa_16').value = newBirthdate;
+    }
+
+  document.addEventListener("DOMContentLoaded", function(){
+
+    // when the employer name is selected
+      document.getElementById('tfa_1').addEventListener('change', function() {
+        var employerName = getSelectedText('tfa_1');
+        console.log(`employerName: ${employerName}`);
+
+        // find agencynumer based on employer name
+        var agencyNumber = getAgencyNumber(employerName);
+        console.log(`agencyNumber: ${agencyNumber}`);
+
+        // set the value of the agencynumber field
+        document.getElementById('tfa_2').value = agencyNumber;
+
+      });
+
+    // when home state is selected
+      document.getElementById('tfa_42').addEventListener('change',  function() {
+        // var homeState = $( "#tfa_42 option:selected" ).text();
+        var homeState = getSelectedText('tfa_42');
+        console.log(`homeState: ${homeState}`);
+
+        // set the value of the mail-to state field
+        document.getElementById('tfa_4').value = homeState;
+
+    });
+
+      // when any of the birthdate fields are changed,
+      // update the birthdate string
+        document.getElementById('tfa_274').addEventListener('change', function() {
+          updateBirthdateString();
+        });
+        document.getElementById('tfa_276').addEventListener('change', function() {
+          updateBirthdateString();
+        });
+        document.getElementById('tfa_278').addEventListener('change', function() {
+          updateBirthdateString();
+        });
+  });
+
+
+  // now run it all over again after validation and before submit
+  // because it's just not firing in 10% of submissions ???
+  wFORMS.behaviors.validation.onPass = function() {
+
+    // get user-selected employer name from field
+    var employerName = getSelectedText('tfa_1');
+    console.log(`employerName: ${employerName}`);
+
+    // find agencynumer based on employer name
+    var agencyNumber = getAgencyNumber(employerName);
+    console.log(`agencyNumber: ${agencyNumber}`);
+
+    // set the value of the agencynumber field
+    document.getElementById('tfa_2').value = agencyNumber;
+
+    // get the value of home state
+    var homeState = getSelectedText('tfa_42');
+    console.log(`homeState: ${homeState}`);
+
+    // set the value of the mail-to state field
+    document.getElementById('tfa_4').value = homeState;
+
+    updateBirthdateString();
+
+   }
+
+</script>
+
+<style>
+
+/* custom css for membership application */
+  body {font-family: 'Open Sans', sans-serif;}
+  .label {text-transform: uppercase; font-size: 13px !important; color: #383932 !important; padding: 0 0 4px 0 !important; white-space: normal !important; text-align: left !important;}
+  .wFormContainer {width: 545px; max-width: 100%;}
+  .wForm .inputWrapper {width: 100% !important}
+  .wFormContainer .hint {font-size: 13px !important;}
+  #tfa_20-D, #tfa_45-D, #tfa_45 {width: 100% !important;}
+
+
+  @media screen and (max-width: 600px) {
+    .wFormContainer .wForm #wfTabNav, .wFormContainer .wForm form {
+      padding: 0px 1rem 1.6em !important;
+    }
+    .wFormContainer .wFormHeader {
+      height: 0 !important;
+    }
+    .wFormContainer {
+      margin: -24px auto 0 auto !important;
+    }
+  }
+</style>
